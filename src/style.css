@@ -1,3 +1,4 @@
+/* Header */
 body {
   margin : 0px;
 }
@@ -39,4 +40,34 @@ body header h1{
 }
 body header h3 strong{
   color : yellow;
+}
+
+/* Footer */
+body footer{
+  text-align : center;
+  margin : 0px;
+  padding : 5px;
+  background-color : #03a9f4;
+}
+body footer h6{
+  font-size : 18px;
+  font-family : "Lucida Console", "Courier New", monospace;
+  color : white;
+}
+body footer h6,p{
+  margin : 10px;
+}
+body footer .githubLink, .githubLink a{
+  color : yellow;
+  font-size : 24px;
+  font-weight: bold;
+  font-family: system-ui;
+}
+
+body footer .aToTop{
+  color : red;
+  text-decoration:none;
+  font-size : 18px;
+  font-weight: 500;
+  font-family: system-ui;
 }
