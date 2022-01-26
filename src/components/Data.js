@@ -8,9 +8,9 @@ export default function Data() {
           <div className="w-full lg:w-4/12 px-4 lg:order-1">
             <div className="mr-4 p-3 text-left">
               <a
-                href="#id"
+                href="/tweet"
+                target="_blank"
                 className="text-3xl font-bold block tracking-wide text-blueGray-800"
-                onClick={(e) => e.preventDefault()}
               >
                 Sana
               </a>

@@ -26,7 +26,6 @@ export default function Navbar(props) {
             >
               <i className="text-blueGray800 fas fa-bars"></i>
             </button>
-
           </div>
 
           <div
@@ -38,11 +37,11 @@ export default function Navbar(props) {
             <ul className="flex flex-col lg:flex-row list-none lg:ml-auto ">
               <li className="flex items-center justify-center lg: my-2 mx-1">
                 <a
-                  href="/create-alarm"
+                  href="/following"
                   target="_blank"
                   className="bg-blue-500 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-9 py-2 rounded-full shadow hover:shadow-md outline-none focus:outline-none ease-linear transition-all duration-150 "
                 >
-                  <i className="fas fa-bell mr-1" /> Create Alarm
+                  Following
                 </a>
               </li>
               <li className="flex items-center justify-center lg: my-2 mx-1">
@@ -54,7 +53,6 @@ export default function Navbar(props) {
                   />
                   <span class="z-10 h-full leading-snug font-normal absolute text-center text-blueGray-800 bg-transparent rounded text-base items-center justify-center right-0 pr-3 py-1">
                     <i class="fas fa-search"></i>
-
                   </span>
                 </div>
               </li>
@@ -63,7 +61,6 @@ export default function Navbar(props) {
               </li>
             </ul>
           </div>
-
         </div>
       </nav>
     </>

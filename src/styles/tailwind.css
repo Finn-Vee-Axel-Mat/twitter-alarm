@@ -2177,6 +2177,21 @@ select {
   color: rgba(203, 213, 225, var(--tw-placeholder-opacity));
 }
 
+.placeholder-blueGray-600::-webkit-input-placeholder {
+  --tw-placeholder-opacity: 1;
+  color: rgba(71, 85, 105, var(--tw-text-opacity));
+}
+
+.placeholder-blueGray-600:-ms-input-placeholder {
+  --tw-placeholder-opacity: 1;
+  color: rgba(71, 85, 105, var(--tw-text-opacity));
+}
+
+.placeholder-blueGray-600::placeholder {
+  --tw-placeholder-opacity: 1;
+  color: rgba(71, 85, 105, var(--tw-text-opacity));
+}
+
 .pointer-events-none {
   pointer-events: none;
 }
