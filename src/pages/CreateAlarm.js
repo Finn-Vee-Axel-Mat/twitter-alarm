@@ -19,7 +19,7 @@ export default function CreateAlarm() {
           <Form />
         </div>
       </div>
-      <FooterSmall absolute className="bg-blueGray-800" />
+      <FooterSmall className="bg-blueGray-800" />
     </>
   );
 }

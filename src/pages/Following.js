@@ -4,6 +4,7 @@ import Navbar from "../components/Navbar.js";
 import Data from "../components/Data.js";
 import Pagination from "../components/Pagination.js";
 import FooterSmall from "../components/FooterSmall.js";
+import Tweet from "../components/Tweet.js";
 
 export default function Following() {
   return (
