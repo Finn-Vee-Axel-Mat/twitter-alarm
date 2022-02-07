@@ -9,7 +9,7 @@ export default function Footer() {
             <div className="w-full lg:w-6/12 px-4">
               <h4 className="text-3xl text-white font-semibold">Contact</h4>
               <h5 className="text-lg mt-0 mb-2 text-blueGray-200">
-                Find us on any of these platforms, we respond 1-2 business days.
+                Students are willing to be contacted on their university emails.
               </h5>
             </div>
             <div className="w-full lg:w-6/12 px-4">
@@ -22,23 +22,23 @@ export default function Footer() {
                     <li>
                       <a
                         className="text-blueGray-300 hover:text-blueGray-800 font-semibold block pb-2 text-sm"
-                        href="/"
+                        href="https://www.unicaen.fr/"
                       >
-                        About Us
+                        Unicaen
                       </a>
                     </li>
                     <li>
                       <a
                         className="text-blueGray-300 hover:text-blueGray-800 font-semibold block pb-2 text-sm"
-                        href="/"
+                        href="https://forge.info.unicaen.fr/projects/projets-l3/wiki/Twitter_Alarme"
                       >
-                        Blog
+                        Subject
                       </a>
                     </li>
                     <li>
                       <a
                         className="text-blueGray-300 hover:text-blueGray-800 font-semibold block pb-2 text-sm"
-                        href="/"
+                        href="https://github.com/Finn-Vee-Axel-Mat/twitter-alarm"
                       >
                         Github
                       </a>
@@ -52,14 +52,7 @@ export default function Footer() {
           <div className="flex flex-wrap items-center md:justify-between justify-center">
             <div className="w-full md:w-4/12 px-4 mx-auto text-center">
               <div className="text-sm text-blueGray-500 font-semibold py-1">
-                Copyright © {new Date().getFullYear()} Notus React by{" "}
-                <a
-                  href="https://www.creative-tim.com?ref=nr-footer"
-                  className="text-blueGray-500 hover:text-blueGray-800"
-                >
-                  Creative Tim
-                </a>
-                .
+                Copyright © Finn-Vee-Axel-Mat
               </div>
             </div>
           </div>

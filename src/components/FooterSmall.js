@@ -15,39 +15,33 @@ export default function FooterSmall(props) {
           <div className="flex flex-wrap items-center md:justify-between justify-center">
             <div className="w-full md:w-4/12 px-4">
               <div className="text-sm text-blueGray-500 font-semibold py-1 text-center md:text-left">
-                Copyright © {new Date().getFullYear()}{" "}
-                <a
-                  href="/"
-                  className="text-white hover:text-blueGray-300 text-sm font-semibold py-1"
-                >
-                  Creative Tim
-                </a>
+                Copyright © Finn-Vee-Axel-Mat
               </div>
             </div>
             <div className="w-full md:w-8/12 px-4">
               <ul className="flex flex-wrap list-none md:justify-end  justify-center">
                 <li>
                   <a
-                    href="/"
+                    href="https://www.unicaen.fr/"
                     className="text-white hover:text-blueGray-300 text-sm font-semibold block py-1 px-3"
                   >
-                    About Us
+                    Unicaen
                   </a>
                 </li>
                 <li>
                   <a
-                    href="/"
+                    href="https://forge.info.unicaen.fr/projects/projets-l3/wiki/Twitter_Alarme"
                     className="text-white hover:text-blueGray-300 text-sm font-semibold block py-1 px-3"
                   >
-                    Blog
+                    Subject
                   </a>
                 </li>
                 <li>
                   <a
-                    href="/"
+                    href="https://github.com/Finn-Vee-Axel-Mat/twitter-alarm"
                     className="text-white hover:text-blueGray-300 text-sm font-semibold block py-1 px-3"
                   >
-                    MIT License
+                    Github
                   </a>
                 </li>
               </ul>

@@ -1,7 +1,11 @@
 import React, { useState } from "react";
 import { View, Switch, StyleSheet } from "react-native";
 
+
+
 export default function Form() {
+  var createAlarm = () => window.location.href = '/following?status=good';
+  //var createAlarm = () => window.location.href = '/following?status=bad';
   const [isEnabled, setIsEnabled] = useState(false);
   function toggleSwitch(){
     setIsEnabled(previousState => !previousState);
@@ -137,6 +141,7 @@ export default function Form() {
           </div>
           <div className="text-center mt-6">
             <button
+              onClick={createAlarm}
               className="bg-blue-500 text-white active:bg-blueGray-600 text-sm font-bold uppercase px-6 py-3 rounded-full shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
               type="button"
             >
