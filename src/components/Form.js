@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import { View, Switch, StyleSheet } from "react-native";
 
-
-
 export default function Form() {
   var createAlarm = () => window.location.href = '/following?status=good';
   //var createAlarm = () => window.location.href = '/following?status=bad';
@@ -10,7 +8,7 @@ export default function Form() {
   function toggleSwitch(){
     setIsEnabled(previousState => !previousState);
   }
-
+    const [open, setOpen] = useState(false);
     return (
     <View style={styles.container}>
       <div className="relative flex flex-col min-w-0 break-words w-full mb-6 bg-white">
@@ -46,7 +44,7 @@ export default function Form() {
                 ios_backgroundColor="#3e3e3e"
                 onValueChange={toggleSwitch}
                 value={isEnabled}
-              />  
+              />
               <i>From a word, hashtags, tokens</i>
             </div>
           </div>

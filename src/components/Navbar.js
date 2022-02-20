@@ -46,14 +46,14 @@ export default function Navbar(props) {
                 </a>
               </li>
               <li className="flex items-center justify-center lg: my-2 mx-1">
-                <div class="relative items-stretch">
+                <div className="relative items-stretch">
                   <input
                     type="text"
                     className="px-2 py-1 h-8 border-2 border-solid border-blueGray-600 rounded-full text-sm leading-snug text-blueGray-700 bg-whilte shadow-none outline-none focus:outline-none w-full font-normal rounded-l-none flex-1 placeholder-blueGray-600"
                     placeholder="Search"
                   />
-                  <span class="z-10 h-full leading-snug font-normal absolute text-center text-blueGray-800 bg-transparent rounded text-base items-center justify-center right-0 pr-3 py-1">
-                    <i class="fas fa-search"></i>
+                  <span className="z-10 h-full leading-snug font-normal absolute text-center text-blueGray-800 bg-transparent rounded text-base items-center justify-center right-0 pr-3 py-1">
+                    <i className="fas fa-search"></i>
 
                   </span>
                 </div>
