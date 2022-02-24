@@ -75,16 +75,11 @@ export default function Following() {
             <img width='60px' style={timeLeft<58 ? {width: '100px',margin: 'auto',display: 'none'} : {width: '100px',margin: 'auto'}} src="https://askcodez.com/images3/157446935584697.gif" />
 
         <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 rounded-xl ">
-          <Data />
-          <Data />
-          <Data />
-          <Data />
-          <Data />
-          <Data />
-          <Data />
-          <Data />
-          <Data />
-          <Data />
+          <Data item={{title: ":)", delay: timeLeft, count: 12, maxCount: 100}} />
+          <Data item={{title: ":)", delay: timeLeft, count: 12, maxCount: 100}} />
+          <Data item={{title: ":)", delay: timeLeft, count: 12, maxCount: 100}} />
+          <Data item={{title: ":)", delay: timeLeft, count: 72, maxCount: 100}} />
+          <Data item={{title: ":)", delay: timeLeft, count: 12, maxCount: 100}} />
 
           <Pagination />
         </div>
