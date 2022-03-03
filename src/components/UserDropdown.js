@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { createPopper } from "@popperjs/core";
+import { useNavigate } from "react-router-dom";
 
 const UserDropdown = () => {
   // dropdown props
@@ -16,6 +17,21 @@ const UserDropdown = () => {
   const closeDropdownPopover = () => {
     setDropdownPopoverShow(false);
   };
+
+  /* Log out */
+  const [error, setError] = useState("");
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!localStorage.getItem("token")) navigate("/");
+  });
+
+  const logout = () => {
+    localStorage.removeItem("token");
+    navigate("/");
+  };
+
   return (
     <>
       <a
@@ -29,8 +45,6 @@ const UserDropdown = () => {
       >
         <i className="lg:text-blue-500 text-blue-500 fas fa-user-circle text-4xl lg: p-0 " />
         <span className="lg:hidden inline-block ml-2">Account Manager</span>
-
-
       </a>
       <div
         ref={popoverDropdownRef}
@@ -67,14 +81,14 @@ const UserDropdown = () => {
           Settings
         </a>
         <div className="h-0 my-2 border border-solid border-blueGray-100" />
-        <a
-          href="/"
+        <button
+          onClick={logout}
           className={
             "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
           }
         >
           Sign out
-        </a>
+        </button>
       </div>
     </>
   );

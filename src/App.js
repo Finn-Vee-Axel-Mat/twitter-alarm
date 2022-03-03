@@ -5,6 +5,7 @@ import Register from "./pages/Register";
 import Following from "./pages/Following";
 import CreateAlarm from "./pages/CreateAlarm";
 import Alarm from "./pages/Alarm";
+import PrivateRoute from "./routes/PrivateRoute";
 
 function App() {
   return (

@@ -1,18 +1,64 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
 
 import IndexNavbar from "../components/IndexNavbar.js";
 import FooterSmall from "../components/FooterSmall.js";
 
-export default function Register() {
+const Register = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmpassword, setConfirmPassword] = useState("");
+  const [error, setError] = useState("");
+
+  const navigate = useNavigate();
+
+  const register = async (e) => {
+    e.preventDefault();
+
+    const config = {
+      header: {
+        "Content-Type": "application/json",
+      },
+    };
+
+    if (password !== confirmpassword) {
+      setPassword("");
+      setConfirmPassword("");
+      setTimeout(() => {
+        setError("");
+      }, 5000);
+      return setError("Passwords do not match");
+    }
+
+    try {
+      const { data } = await axios.post(
+        "/api/auth/register",
+        {
+          email,
+          password,
+        },
+        config
+      );
+
+      localStorage.setItem("token", data.token);
+      navigate("/login");
+    } catch (error) {
+      setError(error.response.data.error);
+      setTimeout(() => {
+        setError("");
+      }, 5000);
+    }
+  };
+
   return (
     <>
       <section className="relative w-full h-full py-40 min-h-screen bg-blue-500">
         <IndexNavbar fixed />
         <div className="absolute top-0 w-full h-full white bg-no-repeat bg-full"></div>
-        <div className="container mx-auto px-4 h-full">
+        <div className="container mx-auto h-full px-8">
           <div className="flex content-center items-center justify-center h-full">
-            <div className="w-full lg:w-4/12 px-4">
+            <div className="w-full lg:w-4/12">
               <div className="relative flex flex-col min-w-0 break-words w-full mb-6 bg-white rounded-xl">
                 <div className="rounded-t mb-0 px-6 py-6">
                   <div className="text-center mb-3">
@@ -23,7 +69,8 @@ export default function Register() {
                 </div>
                 <div className="flex-auto px-4 lg:px-10 py-10 pt-0">
                   <div className="text-blueGray-400 text-center mb-3 font-bold"></div>
-                  <form>
+
+                  <form onSubmit={register}>
                     <div className="relative w-full mb-3">
                       <label
                         className="block uppercase text-blueGray-600 text-sm font-bold mb-2"
@@ -33,8 +80,11 @@ export default function Register() {
                       </label>
                       <input
                         type="email"
-                        className="border px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded-full text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                        required
                         placeholder="Email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        className="border px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded-full text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                       />
                     </div>
 
@@ -47,8 +97,10 @@ export default function Register() {
                       </label>
                       <input
                         type="password"
-                        className="border px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded-full text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                        required
                         placeholder="Password"
+                        onChange={(e) => setPassword(e.target.value)}
+                        className="border px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded-full text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                       />
                     </div>
 
@@ -61,8 +113,10 @@ export default function Register() {
                       </label>
                       <input
                         type="password"
+                        required
+                        placeholder="Confirm Password"
+                        onChange={(e) => setConfirmPassword(e.target.value)}
                         className="border px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded-full text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                        placeholder="Password"
                       />
                     </div>
 
@@ -71,6 +125,7 @@ export default function Register() {
                         <input
                           id="customCheckLogin"
                           type="checkbox"
+                          required
                           className="form-checkbox border rounded-lg text-blueGray-700 ml-1 w-5 h-5 ease-linear transition-all duration-150"
                         />
                         <span className="ml-2 text-sm font-semibold text-blueGray-600">
@@ -86,16 +141,22 @@ export default function Register() {
                       </label>
                     </div>
 
+                    {error && (
+                      <span className="text-red-500 font-semibold">
+                        {error}
+                      </span>
+                    )}
+
                     <div className="text-center mt-6">
-                      <a
+                      <button
+                        type="submit"
                         className="bg-blue-500 text-white active:bg-blueGray-600 text-sm font-bold uppercase px-6 py-3 rounded-full shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150"
-                        type="button"
-                        href="/login"
                       >
                         Create Account
-                      </a>
+                      </button>
                     </div>
                   </form>
+
                   <div className="flex flex-wrap mt-6 relative">
                     <div className="w-1/2"></div>
                     <div className="w-1/2 text-right">
@@ -113,4 +174,6 @@ export default function Register() {
       </section>
     </>
   );
-}
+};
+
+export default Register;
