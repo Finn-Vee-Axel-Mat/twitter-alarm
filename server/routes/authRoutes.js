@@ -15,7 +15,7 @@ router.post("/register", async (req, res) => {
     const token = jwt.sign({ userId: user._id }, "MY_SECRET_KEY");
     res.send({ token });
   } catch (err) {
-    res.status(422).send(err.message);
+    res.status(422).send({ error: "Email has been used" });
   }
 });
 
