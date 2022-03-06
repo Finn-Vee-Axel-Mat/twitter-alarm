@@ -1,5 +1,5 @@
 /*eslint-disable*/
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 
 import IndexNavbar from "../components/IndexNavbar.js";
@@ -25,7 +25,7 @@ export default function Home() {
                 visualization of should be presented on the Website.
               </p>
 
-              <div className="mt-12">
+              <div style={localStorage.getItem("token") ? {display: 'none'} : {display: 'block'}} className="mt-12">
                 <a
                   href="/login"
                   target="_blank"
@@ -40,6 +40,15 @@ export default function Home() {
                   target="_blank"
                 >
                   Sign Up
+                </a>
+              </div>
+              <div style={localStorage.getItem("token") ? {display: 'block'} : {display: 'none'}} className="mt-12">
+                <a
+                  href="/following"
+                  className="following ml-1 text-blue-500 bg-transparent border border-solid border-blue-500 hover:bg-blue-500 hover:text-white active:bg-blue-600 font-bold uppercase text-sm px-6 py-3  rounded-full outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
+                  target="_blank"
+                >
+                  Go to my alarms
                 </a>
               </div>
             </div>
