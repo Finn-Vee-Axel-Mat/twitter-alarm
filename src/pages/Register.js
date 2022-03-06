@@ -48,6 +48,7 @@ const Register = () => {
       );
 
       localStorage.setItem("token", data.token);
+      localStorage.setItem("email", email);
       navigate("/login");
     } catch (error) {
       setError(error.response.data.error);

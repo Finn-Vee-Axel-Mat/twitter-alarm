@@ -35,6 +35,7 @@ const Login = () => {
       );
 
       localStorage.setItem("token", data.token);
+      localStorage.setItem("email", email);
       navigate("/following");
     } catch (error) {
       setError(error.response.data.error);

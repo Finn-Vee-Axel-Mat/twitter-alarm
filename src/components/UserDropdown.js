@@ -29,6 +29,7 @@ const UserDropdown = () => {
 
   const logout = () => {
     localStorage.removeItem("token");
+    localStorage.removeItem("email");
     navigate("/");
   };
 
@@ -53,6 +54,13 @@ const UserDropdown = () => {
           "bg-white text-base z-50 float-left py-2 list-none text-left rounded-xl shadow-lg mt-1 min-w-48"
         }
       >
+        <a
+          className={
+            "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
+          }
+        >
+          <p style={{textAlign: 'center', backgroundColor: '#a1e8e1', borderRadius: '5px'}}><b>{localStorage.getItem("email")}</b></p>
+        </a>
         <a
           href="#"
           className={
