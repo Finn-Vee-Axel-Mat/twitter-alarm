@@ -1,23 +1,59 @@
 import React, { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 
 import IndexNavbar from "../components/IndexNavbar.js";
 import FooterSmall from "../components/FooterSmall.js";
 
 const ResetPassword = () => {
-  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [confirmpassword, setConfirmPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
 
   const navigate = useNavigate();
-
+  const { resetToken } = useParams();
   useEffect(() => {
     if (localStorage.getItem("token")) {
       navigate("/following");
     }
   }, []);
+
+  const resetPassword = async (e) => {
+    e.preventDefault();
+
+    const config = {
+      header: {
+        "Content-Type": "application/json",
+      },
+    };
+
+    if (password !== confirmPassword) {
+      setPassword("");
+      setConfirmPassword("");
+      setTimeout(() => {
+        setError("");
+      }, 5000);
+      return setError("Passwords don't match");
+    }
+
+    try {
+      const { data } = await axios.put(
+        `/api/auth/reset-password/${resetToken}`,
+        {
+          password,
+        },
+        config
+      );
+
+      setSuccess(data.data);
+    } catch (error) {
+      setError(error.response.data.error);
+      setTimeout(() => {
+        setError("");
+      }, 5000);
+    }
+  };
 
   return (
     <>
@@ -36,7 +72,7 @@ const ResetPassword = () => {
                   </div>
                 </div>
                 <div className="flex-auto px-4 lg:px-10 py-6 pt-0">
-                  <form>
+                  <form onSubmit={resetPassword}>
                     <div className="relative w-full mb-3">
                       <label
                         className="block uppercase text-blueGray-800 text-sm font-bold mb-2"
@@ -73,6 +109,11 @@ const ResetPassword = () => {
                     {error && (
                       <span className="text-red-500 font-semibold">
                         {error}
+                      </span>
+                    )}
+                    {success && (
+                      <span className="text-emerald-500 font-semibold">
+                        {success}
                       </span>
                     )}
 

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import emailjs from "emailjs-com";
 
 import IndexNavbar from "../components/IndexNavbar.js";
 import FooterSmall from "../components/FooterSmall.js";
@@ -8,6 +9,7 @@ import FooterSmall from "../components/FooterSmall.js";
 const ForgotPassword = () => {
   const [email, setEmail] = useState("");
   const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
 
   const navigate = useNavigate();
 
@@ -16,6 +18,49 @@ const ForgotPassword = () => {
       navigate("/following");
     }
   }, []);
+
+  const forgotPassword = async (e) => {
+    e.preventDefault();
+
+    const config = {
+      header: {
+        "Content-Type": "application/json",
+      },
+    };
+
+    try {
+      const { data } = await axios.post(
+        "/api/auth/forgot-password",
+        { email },
+        config
+      );
+
+      setSuccess(data.data);
+
+      const resetUrl = `http://localhost:3000/reset-password/${data.resetToken}`;
+
+      emailjs.init("mlq8NFOh_4FFPnBBS");
+      emailjs
+        .send("service_3kjhmde", "template_1q62vbi", {
+          for: email,
+          link: resetUrl,
+        })
+        .then(
+          (response) => {
+            console.log("Success");
+          },
+          (err) => {
+            console.log(err);
+          }
+        );
+    } catch (error) {
+      setError(error.response.data.error);
+      setEmail("");
+      setTimeout(() => {
+        setError("");
+      }, 5000);
+    }
+  };
 
   return (
     <>
@@ -34,7 +79,7 @@ const ForgotPassword = () => {
                   </div>
                 </div>
                 <div className="flex-auto px-4 lg:px-10 py-6 pt-0">
-                  <form>
+                  <form onSubmit={forgotPassword}>
                     <div className="relative w-full mb-3">
                       <label
                         className="block uppercase text-blueGray-800 text-sm font-bold mb-2"
@@ -54,6 +99,12 @@ const ForgotPassword = () => {
                     {error && (
                       <span className="text-red-500 font-semibold">
                         {error}
+                      </span>
+                    )}
+
+                    {success && (
+                      <span className="text-emerald-500 font-semibold">
+                        {success}
                       </span>
                     )}
 

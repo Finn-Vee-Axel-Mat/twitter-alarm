@@ -59,7 +59,16 @@ const UserDropdown = () => {
             "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
           }
         >
-          <p style={{textAlign: 'center', backgroundColor: '#a1e8e1', borderRadius: '5px'}}><b>{localStorage.getItem("email")}</b></p>
+          <p
+            style={{
+              textAlign: "center",
+              backgroundColor: "#a1e8e1",
+              borderRadius: "5px",
+              padding: 2,
+            }}
+          >
+            <b>{localStorage.getItem("email")}</b>
+          </p>
         </a>
         <a
           href="#"
