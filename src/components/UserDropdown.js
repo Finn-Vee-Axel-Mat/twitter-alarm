@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { StyleSheet } from "react-native";
 import { createPopper } from "@popperjs/core";
 import { useNavigate } from "react-router-dom";
 
@@ -77,25 +78,16 @@ const UserDropdown = () => {
           }
           onClick={(e) => e.preventDefault()}
         >
-          Action
+          Profile
         </a>
         <a
           href="#"
           className={
             "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
           }
-          onClick={(e) => e.preventDefault()}
+          onClick={(e) => navigate("/settings")}
         >
-          Another action
-        </a>
-        <a
-          href="#"
-          className={
-            "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
-          }
-          onClick={(e) => e.preventDefault()}
-        >
-          Settings
+        Settings
         </a>
         <div className="h-0 my-2 border border-solid border-blueGray-100" />
         <button

@@ -24,6 +24,12 @@ function refreshButton() {
 }
 
 function refreshAlarms() {
+  console.log("---------");
+  console.log("token : "+ localStorage.getItem("token"));
+  console.log("email : "+ localStorage.getItem("email"));
+  console.log("alerte audio % : "+ localStorage.getItem("audioAlert"));
+  console.log("alerte email ? : "+ localStorage.getItem("emailAlert"));
+  console.log("---------");
   console.log("refresh all");
 }
 

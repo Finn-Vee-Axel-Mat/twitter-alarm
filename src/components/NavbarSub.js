@@ -38,7 +38,6 @@ export default function Navbar(props) {
               <li className="flex items-center justify-center lg: my-2 mx-1">
                 <a
                   href="/following"
-                  target="_blank"
                   className="bg-blue-500 text-white active:bg-lightBlue-600 font-bold uppercase text-xs px-11 py-2 rounded-full shadow hover:shadow-md outline-none focus:outline-none ease-linear transition-all duration-150"
                 >
                   <i class="fas fa-list-ul mr-1" /> Following

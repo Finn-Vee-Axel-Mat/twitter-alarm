@@ -7,6 +7,7 @@ import CreateAlarm from "./pages/CreateAlarm";
 import Alarm from "./pages/Alarm";
 import ForgotPassword from "./pages/ForgotPassword";
 import ResetPassword from "./pages/ResetPassword";
+import Settings from "./pages/Settings";
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
         <Route path="/following" element={<Following />} />
         <Route path="/create-alarm" element={<CreateAlarm />} />
         <Route path="/tweet" element={<Alarm />} />
+        <Route path="/settings" element={<Settings />} />
       </Routes>
     </BrowserRouter>
   );

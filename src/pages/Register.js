@@ -51,6 +51,8 @@ const Register = () => {
 
       localStorage.setItem("token", data.token);
       localStorage.setItem("email", email);
+      localStorage.setItem("audioAlert", 50); //activation du son des alertes à la connexion
+      localStorage.setItem("emailAlert", true); //mail envoyé lors si déclenchement d'une alarme
       registerMail(email);
       navigate("/login");
     } catch (error) {
