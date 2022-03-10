@@ -5,7 +5,7 @@ import axios from "axios";
 import IndexNavbar from "../components/IndexNavbar.js";
 import FooterSmall from "../components/FooterSmall.js";
 
-import emailjs from 'emailjs-com';
+import { registerMail } from "../scripts/mailing.js";
 
 const Register = () => {
   const [email, setEmail] = useState("");
@@ -51,10 +51,7 @@ const Register = () => {
 
       localStorage.setItem("token", data.token);
       localStorage.setItem("email", email);
-      emailjs.init("mlq8NFOh_4FFPnBBS");
-      emailjs.send("service_3kjhmde","template_woif947",{
-        for: email,
-      });
+      registerMail(email);
       navigate("/login");
     } catch (error) {
       setError(error.response.data.error);

@@ -4,7 +4,7 @@ import Data from "../components/Data.js";
 import Pagination from "../components/Pagination.js";
 import FooterSmall from "../components/FooterSmall.js";
 
-import { playAlarm } from "../js/play.js";
+import { playGentleAlarm } from "../scripts/music.js";
 
 function getQueryVariable(variable) {
   var query = window.location.search.substring(1);
@@ -19,6 +19,7 @@ function getQueryVariable(variable) {
 }
 
 function refreshButton() {
+  playGentleAlarm();
   refreshAlarms();
 }
 
