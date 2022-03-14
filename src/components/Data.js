@@ -5,12 +5,14 @@ import { StyleSheet } from 'react-native';
 export default class Data extends React.Component {
   constructor (props) {
     super(props)
-    this.alertRecap = props.item;
-    this.percentage = this.alertRecap.count/this.alertRecap.maxCount;
+    this.item = props.item.item;
+    console.log(this.item);
+    this.delay = props.delay;
+    this.percentage = this.item;
   }
 
   componentWillReceiveProps (props) {
-    this.alertRecap = props.item;
+    this.delay = props.delay;
   }
 
   render () {
@@ -24,10 +26,10 @@ export default class Data extends React.Component {
                 target="_blank"
                 className="text-3xl font-bold block tracking-wide text-blueGray-800"
               >
-                {this.alertRecap.title}
+                {this.item.titre}
               </a>
               <span className="text-sm text-blueGray-600">
-                Updated {this.alertRecap.delay} seconds ago
+                Updated {this.delay} seconds ago
               </span>
             </div>
           </div>
@@ -39,10 +41,10 @@ export default class Data extends React.Component {
             <div className="px-3">
               <div className="relative pt-1">
                 <span className="text-sm text-blueGray-600">
-                  Matching tweets : {this.alertRecap.count}/{this.alertRecap.maxCount}
+                  Matching tweets : {this.item.occurence}/{this.item.total}
                 </span>
                 <div className="overflow-hidden h-2 mb-4 text-xs flex rounded bg-blue-200">
-                  <div style={{width: (100*this.alertRecap.count/this.alertRecap.maxCount).toString()+"%"}} className="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-blue-500"></div>
+                  <div style={{width: (100*this.item.occurence/this.item.total).toString()+"%"}} className="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-blue-500"></div>
                 </div>
               </div>
             </div>

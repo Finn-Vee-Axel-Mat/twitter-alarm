@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { FlatList } from 'react-native';
 import Navbar from "../components/Navbar.js";
 import Data from "../components/Data.js";
 import Pagination from "../components/Pagination.js";
@@ -48,6 +49,29 @@ export default function Following() {
       }
     }, 1000);
     return () => clearInterval(timer);
+  }, []);
+
+
+
+  useEffect(() => {
+    if (localStorage.getItem("alarms") == null){
+      console.log("Pas d'alarmes !");
+
+      //Création d'une alarme pour l'exemple
+      var data = [];
+      data.push({titre: "Mon alarme exemplaire", description: "Lorem ipsum blablabla blabla bla bla...", search: "alarme", total: 100, occurence: 2, date: "2022-01-21T21:00:00Z"});
+      data.push({titre: "Elon musk", description: "L'alerte sur elon", search: "elon", total: 120, occurence: 32, date: "2022-01-21T21:00:00Z"});
+      data.push({titre: "Recette Lasagne", description: "Pour l'exemple", search: "lasagne", total: 20, occurence: 13, date: "2022-01-21T21:00:00Z"});
+      data.push({titre: "Chien", description: "Mignon", search: "chien", total: 340, occurence: 213, date: "2022-01-21T21:00:00Z"});
+
+      console.log(localStorage.setItem("alarms", JSON.stringify(data)));
+      console.log(JSON.parse(localStorage.getItem('alarms')));
+    } else {
+      console.log("Alarmes déployées !");
+      console.log(JSON.parse(localStorage.getItem('alarms')));
+    }
+    
+    
   }, []);
 
   return (
@@ -102,20 +126,9 @@ export default function Following() {
         />
 
         <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 rounded-xl ">
-          <Data
-            item={{ title: ":)", delay: timeLeft, count: 12, maxCount: 100 }}
-          />
-          <Data
-            item={{ title: ":)", delay: timeLeft, count: 12, maxCount: 100 }}
-          />
-          <Data
-            item={{ title: ":)", delay: timeLeft, count: 12, maxCount: 100 }}
-          />
-          <Data
-            item={{ title: ":)", delay: timeLeft, count: 72, maxCount: 100 }}
-          />
-          <Data
-            item={{ title: ":)", delay: timeLeft, count: 12, maxCount: 100 }}
+          <FlatList
+            data={JSON.parse(localStorage.getItem('alarms'))}
+            renderItem = {item => <Data item={item} delay={timeLeft}/>}
           />
 
           <Pagination />

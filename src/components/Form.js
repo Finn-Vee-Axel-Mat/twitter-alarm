@@ -1,20 +1,27 @@
 import React, { useState } from "react";
-import { View, Switch, StyleSheet } from "react-native";
+import { View, Switch, StyleSheet, TextInput } from "react-native";
 
 export default function Form() {
-  var createAlarm = () => window.location.href = '/following?status=good';
+  var createAlarm = () => {
+    var alarms = JSON.parse(localStorage.getItem('alarms'));
+    alarms.push({titre: titre, description: description, search: search, total: maxCount, occurence: 0, date: date});
+    localStorage.setItem("alarms", JSON.stringify(alarms))
+    window.location.href = '/following?status=good'
+  };
   //var createAlarm = () => window.location.href = '/following?status=bad';
-  const [isEnabled, setIsEnabled] = useState(false);
-  function toggleSwitch(){
-    setIsEnabled(previousState => !previousState);
-  }
-    const [open, setOpen] = useState(false);
-    return (
+
+  const [titre, onChangeTitre] = React.useState("");
+  const [description, onChangeDescription] = React.useState("");
+  const [search, onChangeSearch] = React.useState("");
+  const [maxCount, onChangeMaxCount] = React.useState("");
+  const [date, onChangeDate] = React.useState("");
+
+  return (
     <View style={styles.container}>
       <div className="relative flex flex-col min-w-0 break-words w-full mb-6 bg-white">
         <div className="flex-auto p-5 lg:p-10">
           <h4 className="text-2xl font-semibold">
-            Enter a title then hashtag or keyword or account you want to follow
+            Enter a title then hashtag or keyword or account you want to follow soon.
           </h4>
           <div className="relative w-full mb-3 mt-8">
             <label
@@ -23,10 +30,10 @@ export default function Form() {
             >
               Title
             </label>
-            <input
-              type="text"
-              className="border px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded-xl text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-              placeholder="Full Name"
+            <TextInput
+              placeholder={"titre"}
+              onChangeText={onChangeTitre}
+              value={titre}
             />
           </div>
           <div className="relative w-full mb-3 mt-8">
@@ -36,49 +43,9 @@ export default function Form() {
             >
               Type of alarm
             </label>
-            <div style={{margin : 'auto',display: 'flex',gap: '12px',}}>
-              <i>From an account</i>
-              <Switch
-                trackColor={{ false: "#767577", true: "#81b0ff" }}
-                thumbColor={isEnabled ? "#f5dd4b" : "#f4f3f4"}
-                ios_backgroundColor="#3e3e3e"
-                onValueChange={toggleSwitch}
-                value={isEnabled}
-              />
-              <i>From a word, hashtags, tokens</i>
-            </div>
+            <i><u>From a word, hashtags, tokens</u></i>
           </div>
-          <div style={{display : isEnabled ? 'none' : 'block'}} className="AlarmPerAccount">
-            <div className="relative w-full mb-3">
-              <label
-                className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
-                htmlFor="email"
-              >
-                Account
-              </label>
-              <input
-                type="email"
-                className="border px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded-xl text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                placeholder="@Account"
-              />
-            </div>
-
-            <div className="relative w-full mb-3">
-              <label
-                className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
-                htmlFor="message"
-              >
-                Description
-              </label>
-              <textarea
-                rows="4"
-                cols="80"
-                className="border px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded-xl text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                placeholder="Type a description..."
-              />
-            </div>
-          </div>
-          <div style={{display : isEnabled ? 'block' : 'none'}} className="AlarmPerTokens">
+          <div className="AlarmPerTokens">
             <div className="relative w-full mb-3">
               <label
                 className="block uppercase text-blueGray-600 text-xs font-bold mb-2"
@@ -86,10 +53,11 @@ export default function Form() {
               >
                 Character string
               </label>
-              <input
-                type="email"
-                className="border px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded-xl text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                placeholder="Sentence, word, tokens, hashtags, etc ..."
+              <TextInput
+                style={{width: '50%', minWidth: '340px'}}
+                placeholder={"Tokens"}
+                onChangeText={onChangeSearch}
+                value={search}
               />
             </div>
 
@@ -100,10 +68,11 @@ export default function Form() {
               >
                 Occurrence before trigger
               </label>
-              <input
-                type="email"
-                className="border px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded-xl text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                placeholder="Integer"
+              <TextInput
+                style={{width: '10%', minWidth: '40px'}}
+                placeholder={"Integer"}
+                onChangeText={onChangeMaxCount}
+                value={maxCount}
               />
             </div>
 
@@ -115,10 +84,10 @@ export default function Form() {
                 Since
               </label>
               <p>The format must be respected : <u>2022-01-21T21:00:00Z</u></p>
-              <input
-                type="email"
-                className="border px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded-xl text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                placeholder="2022-01-21T21:00:00Z"
+              <TextInput
+                placeholder={"2022-01-21T21:00:00Z"}
+                onChangeText={onChangeDate}
+                value={date}
               />
             </div>
 
@@ -129,11 +98,11 @@ export default function Form() {
               >
                 Description
               </label>
-              <textarea
-                rows="4"
-                cols="80"
-                className="border px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded-xl text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
-                placeholder="Type a description..."
+              <TextInput
+                style={{width: '100%', height: '150px'}}
+                placeholder={"Description"}
+                onChangeText={onChangeDescription}
+                value={description}
               />
             </div>
           </div>
