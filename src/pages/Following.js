@@ -5,11 +5,14 @@ import Data from "../components/Data.js";
 import Pagination from "../components/Pagination.js";
 import FooterSmall from "../components/FooterSmall.js";
 
-import { playGentleAlarm } from "../scripts/music.js";
+import { playGentleRefresh, playGentleAlarm } from "../scripts/music.js";
+import { tweets } from "../scripts/twitter.js";
+
 
 function refreshButton() {
-  playGentleAlarm();
+  playGentleRefresh();
   refreshAlarms();
+  tweets();
 }
 
 function refreshAlarms() {
@@ -24,6 +27,11 @@ function refreshAlarms() {
   for (let i = 0; i < data.length; i++) {
     data[i].occurence += 1;
     data[i].lastUpdate = new Date().toUTCString();
+
+    if (data[i].occurence == data[i].total){
+      playGentleAlarm();
+      alert("L'alarme '"+data[i].titre+"' s'est déclenchée !");
+    }
   }
   localStorage.setItem("alarms", JSON.stringify(data));
 }
@@ -82,7 +90,7 @@ export default function Following() {
         <h1 className="mx-45 my-6 underline px-4 text-3xl font-bold block tracking-wide text-blueGray-800">
           Following
         </h1>
-        <div className="flex justify-end items-center">
+        <div style={{margin: '25px'}} className="flex justify-end items-center">
           <span className="mr-4 ">Next update: {timeLeft} seconds.</span>
           <button
             type="button"
@@ -110,7 +118,16 @@ export default function Following() {
         <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 rounded-xl ">
           <FlatList
             data={JSON.parse(localStorage.getItem('alarms'))}
-            renderItem = {item => <Data item={item} delay={timeLeft}/>}
+            renderItem = {item => <Data item={item} delay={timeLeft} delete={(id) => {
+              console.log(id);
+              var data = JSON.parse(localStorage.getItem('alarms'));
+              for( var i = 0; i < data.length; i++){ 
+                  if ( data[i].id === id) { 
+                      //data.splice(i, 1); 
+                  }
+              }
+              localStorage.setItem("alarms", JSON.stringify(data));
+            }}/>}
           />
 
           <Pagination />

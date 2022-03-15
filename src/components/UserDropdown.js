@@ -85,6 +85,15 @@ const UserDropdown = () => {
           className={
             "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
           }
+          onClick={() => localStorage.removeItem("alarms")}
+        >
+          Delete alarms
+        </a>
+        <a
+          href="#"
+          className={
+            "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
+          }
           onClick={(e) => navigate("/settings")}
         >
         Settings

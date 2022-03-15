@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet } from 'react-native';
+import { StyleSheet, TouchableOpacity, Image } from 'react-native';
 
 
 export default class Data extends React.Component {
@@ -20,7 +20,7 @@ export default class Data extends React.Component {
     return (<>
       <div className="px-6 mb-3">
         <div style={ this.item.occurence>= this.item.total ? {borderRadius: '12px', backgroundColor: '#30d930'} : {}} className="flex flex-wrap justify-center">
-          <div className="w-full lg:w-4/12 px-4 lg:order-1">
+          <div style={{margin: '10px'}} className="w-full lg:w-4/12 px-4 lg:order-1">
             <div className="mr-4 p-3 text-left">
               <a
                 href={"/tweet?id="+this.item.id}
@@ -50,6 +50,15 @@ export default class Data extends React.Component {
               </div>
             </div>
           </div>
+          <TouchableOpacity
+            style={{margin: '10px'}} 
+            onPress={() => {window.location.href="/tweet?id="+this.item.id}}
+          >
+            <Image
+              style={{marginLeft : '25px',height: '17px', width: '17px'}}
+              source={require('../assets/plus-outline.png')}
+            />
+          </TouchableOpacity>
         </div>
       </div>
     </>)

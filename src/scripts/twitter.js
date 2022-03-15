@@ -1,3 +1,31 @@
+import fetch from 'node-fetch'
+
+export const tweets = async () => {
+  const TOKEN = `AAAAAAAAAAAAAAAAAAAAAKZtYQEAAAAA8OWu8GKNSLSfitU9OSL86dD9YkI%3D2YmR2FfRDr1Kqo4yrL0sQArmgvRHWtTxPQN6pcdsxiidwktmSn`;
+  const SINCE = `2022-01-21T21:00:00Z`;
+  //.............YYYY-MM-DDTHH:MM:SSZ
+
+  const SEARCH = "test";
+
+
+  var myHeaders = new Headers();
+  myHeaders.append("Authorization", "Bearer "+TOKEN);
+  myHeaders.append("Access-Control-Allow-Origin", "*");
+
+  var myInit = { method: 'GET',
+                 headers: myHeaders,
+                 mode: 'cors',
+                 cache: 'default' };
+
+  var myRequest = new Request('https://api.twitter.com/2/tweets/counts/recent?query='+SEARCH, myInit);
+
+  fetch(myRequest,myInit)
+  .then(function(response) {
+    console.log(response);
+  })
+}
+
+
 export const getTweets = async (ids) => {
   if (ids.length === 0) {
     return [];

@@ -1,5 +1,7 @@
 import React from "react";
 
+import { TouchableOpacity, Image } from 'react-native';
+
 import NavbarSub from "../components/NavbarSub.js";
 import Tweet from "../components/Tweet.js";
 import Pagination from "../components/Pagination.js";
@@ -7,13 +9,7 @@ import FooterSmall from "../components/FooterSmall.js";
 
 export default function Following() {
   const id = window.location.search.substring(4);
-  const alarms = JSON.parse(localStorage.getItem('alarms'));
-  var alarm = null;
-  for (var i = 0; i < alarms.length; i++){
-    if  (alarms[i].id == id){
-      alarm = alarms[i];
-    }
-  }
+  const alarm = JSON.parse(localStorage.getItem('alarms')).filter(function(f) { return f.id == id })[0];
   if (alarm == null){
     console.log('ALARME NON TROUVÉE');
   }else{
@@ -57,6 +53,28 @@ export default function Following() {
         <div style={{backgroundColor: '#e6c9c9', width: '100%', marginBottom: '2em', padding: '10px 10px 10px 10px'}}>
           <h1 style={{fontSize: '17px', color: '#1e293b', fontWeight: 700}}><u>Tokens :</u></h1>
           <p><i>{alarm.search}</i></p>
+        </div>
+        <div style={{width: '100%', margin: '0 auto', display: 'flex', justifyContent: 'center'}}>
+          <TouchableOpacity
+            style={{margin: '10px'}} 
+            onPress={() => {
+              var data = JSON.parse(localStorage.getItem('alarms'));
+              console.log(data);
+              for (let i=0; i<data.length; i+=1){
+                if (data[i].id == alarm.id){
+                  data.splice(i, 1);
+                }
+              }
+              localStorage.setItem("alarms", JSON.stringify(data));
+              window.location.href="/following"
+            }}
+          >
+            <Image
+              style={{marginLeft: '24px', height: '30px', width: '30px'}}
+              source={require('../assets/trash-can-outline.png')}
+            />
+            <h3>Supprimer</h3>
+          </TouchableOpacity>
         </div>
 
         <div style={{backgroundColor: '#eaeaea', padding: '15px'}} className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 rounded-xl ">
