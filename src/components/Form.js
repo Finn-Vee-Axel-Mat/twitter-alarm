@@ -4,7 +4,7 @@ import { View, Switch, StyleSheet, TextInput } from "react-native";
 export default function Form() {
   var createAlarm = () => {
     var alarms = JSON.parse(localStorage.getItem('alarms'));
-    alarms.push({titre: titre, description: description, search: search, total: maxCount, occurence: 0, date: date});
+    alarms.push({id: Math.floor(Math.random()*999999), titre: titre, description: description, search: search, total: maxCount, occurence: 0, date: date, lastUpdate: new Date().toUTCString()});
     localStorage.setItem("alarms", JSON.stringify(alarms))
     window.location.href = '/following?status=good'
   };

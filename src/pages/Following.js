@@ -7,18 +7,6 @@ import FooterSmall from "../components/FooterSmall.js";
 
 import { playGentleAlarm } from "../scripts/music.js";
 
-function getQueryVariable(variable) {
-  var query = window.location.search.substring(1);
-  var vars = query.split("&");
-  for (var i = 0; i < vars.length; i++) {
-    var pair = vars[i].split("=");
-    if (pair[0] === variable) {
-      return pair[1];
-    }
-  }
-  return false;
-}
-
 function refreshButton() {
   playGentleAlarm();
   refreshAlarms();
@@ -31,7 +19,13 @@ function refreshAlarms() {
   console.log("alerte audio % : "+ localStorage.getItem("audioAlert"));
   console.log("alerte email ? : "+ localStorage.getItem("emailAlert"));
   console.log("---------");
-  console.log("refresh all");
+  var data = JSON.parse(localStorage.getItem('alarms'));
+
+  for (let i = 0; i < data.length; i++) {
+    data[i].occurence += 1;
+    data[i].lastUpdate = new Date().toUTCString();
+  }
+  localStorage.setItem("alarms", JSON.stringify(data));
 }
 
 export default function Following() {
@@ -59,10 +53,10 @@ export default function Following() {
 
       //Création d'une alarme pour l'exemple
       var data = [];
-      data.push({titre: "Mon alarme exemplaire", description: "Lorem ipsum blablabla blabla bla bla...", search: "alarme", total: 100, occurence: 2, date: "2022-01-21T21:00:00Z"});
-      data.push({titre: "Elon musk", description: "L'alerte sur elon", search: "elon", total: 120, occurence: 32, date: "2022-01-21T21:00:00Z"});
-      data.push({titre: "Recette Lasagne", description: "Pour l'exemple", search: "lasagne", total: 20, occurence: 13, date: "2022-01-21T21:00:00Z"});
-      data.push({titre: "Chien", description: "Mignon", search: "chien", total: 340, occurence: 213, date: "2022-01-21T21:00:00Z"});
+      data.push({id: Math.floor(Math.random()*999999), titre: "Mon alarme exemplaire", description: "Lorem ipsum blablabla blabla bla bla...", search: "alarme", total: 100, occurence: 2, date: "2022-01-21T21:00:00Z", lastUpdate: new Date().toUTCString()});
+      data.push({id: Math.floor(Math.random()*999999), titre: "Elon musk", description: "L'alerte sur elon", search: "elon", total: 120, occurence: 32, date: "2022-01-21T21:00:00Z", lastUpdate: new Date().toUTCString()});
+      data.push({id: Math.floor(Math.random()*999999), titre: "Recette Lasagne", description: "Pour l'exemple", search: "lasagne", total: 20, occurence: 13, date: "2022-01-21T21:00:00Z", lastUpdate: new Date().toUTCString()});
+      data.push({id: Math.floor(Math.random()*999999), titre: "Chien", description: "Mignon", search: "chien", total: 340, occurence: 213, date: "2022-01-21T21:00:00Z", lastUpdate: new Date().toUTCString()});
 
       console.log(localStorage.setItem("alarms", JSON.stringify(data)));
       console.log(JSON.parse(localStorage.getItem('alarms')));
@@ -79,24 +73,12 @@ export default function Following() {
       <Navbar fixed />
       <section className="relative block h-70-px" />
       <div className="container mx-auto px-4">
-        {getQueryVariable("status") === "good" ? (
-          <h2 className="text-white bg-green-500 rounded-full mx-45 my-6 px-5 py-2 text-3xl font-bold block tracking-wide">
-            Alarm created successfully !
-          </h2>
-        ) : null}
-        {getQueryVariable("status") === "bad" ? (
-          <h2
-            className={
-              "text-white bg-red-500 rounded-full mx-45 my-6 px-5 py-2 text-3xl font-bold block tracking-wide" +
-                getQueryVariable("status") ===
-              "false"
-                ? "block"
-                : "hidden"
-            }
-          >
-            Incorrect creation of the alarm!
-          </h2>
-        ) : null}
+        <h2 style={window.location.search.substring(8)=="good" && window.location.search.substring(8)!==null ? {} : {display: 'none'}} className="text-white bg-green-500 rounded-full mx-45 my-6 px-5 py-2 text-3xl font-bold block tracking-wide">
+          Alarm created successfully !
+        </h2>
+        <h2 style={window.location.search.substring(8)=="bad" && window.location.search.substring(8)!==null ? {} : {display: 'none'}} className="text-white bg-red-500 rounded-full mx-45 my-6 px-5 py-2 text-3xl font-bold block tracking-wide">
+          Incorrect creation of the alarm!
+        </h2>
         <h1 className="mx-45 my-6 underline px-4 text-3xl font-bold block tracking-wide text-blueGray-800">
           Following
         </h1>

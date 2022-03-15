@@ -30,6 +30,7 @@ const UserDropdown = () => {
   const logout = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("email");
+    localStorage.removeItem("alarms");
     navigate("/");
   };
 

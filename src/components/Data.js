@@ -13,16 +13,17 @@ export default class Data extends React.Component {
 
   componentWillReceiveProps (props) {
     this.delay = props.delay;
+    this.item = props.item.item;
   }
 
   render () {
     return (<>
       <div className="px-6 mb-3">
-        <div className="flex flex-wrap justify-center">
+        <div style={ this.item.occurence>= this.item.total ? {borderRadius: '12px', backgroundColor: '#30d930'} : {}} className="flex flex-wrap justify-center">
           <div className="w-full lg:w-4/12 px-4 lg:order-1">
             <div className="mr-4 p-3 text-left">
               <a
-                href="/tweet"
+                href={"/tweet?id="+this.item.id}
                 target="_blank"
                 className="text-3xl font-bold block tracking-wide text-blueGray-800"
               >
