@@ -1,7 +1,9 @@
 require("./models/User");
+require("./models/Alarm");
 const express = require("express");
 const mongoose = require("mongoose");
 const authRoutes = require("./routes/authRoutes");
+const alarmRoutes = require("./routes/alarmRoutes");
 const bodyParser = require("body-parser");
 const requireAuth = require("./middlewares/requireAuth");
 const helmet = require("helmet");
@@ -10,6 +12,7 @@ const app = express();
 app.use(helmet()); // not work
 app.use(bodyParser.json());
 app.use("/api/auth", authRoutes);
+app.use("/api/alarms", alarmRoutes);
 
 const PORT = 5000;
 const mongoUri =

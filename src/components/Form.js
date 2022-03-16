@@ -1,27 +1,68 @@
-import React, { useState } from "react";
-import { View, Switch, StyleSheet, TextInput } from "react-native";
+import React, { useEffect, useState } from "react";
+import { View, Switch, StyleSheet } from "react-native";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
 
 export default function Form() {
-  var createAlarm = () => {
-    var alarms = JSON.parse(localStorage.getItem('alarms'));
-    alarms.push({id: Math.floor(Math.random()*999999), titre: titre, description: description, search: search, total: maxCount, occurence: 0, date: date, lastUpdate: new Date().toUTCString()});
-    localStorage.setItem("alarms", JSON.stringify(alarms))
-    window.location.href = '/following?status=good'
-  };
-  //var createAlarm = () => window.location.href = '/following?status=bad';
+  const [title, onChangeTitle] = useState("");
+  const [description, onChangeDescription] = useState("");
+  const [search, onChangeSearch] = useState("");
+  const [total, onChangeTotal] = useState("");
+  const [date, onChangeDate] = useState("");
+  const [error, setError] = useState("");
 
-  const [titre, onChangeTitre] = React.useState("");
-  const [description, onChangeDescription] = React.useState("");
-  const [search, onChangeSearch] = React.useState("");
-  const [maxCount, onChangeMaxCount] = React.useState("");
-  const [date, onChangeDate] = React.useState("");
+  // var createAlarm = () => {
+  //   var alarms = JSON.parse(localStorage.getItem("alarms"));
+  //   alarms.push({
+  //     id: Math.floor(Math.random() * 999999),
+  //     title: title,
+  //     description: description,
+  //     search: search,
+  //     total: maxCount,
+  //     occurence: 0,
+  //     date: date,
+  //     lastUpdate: new Date().toUTCString(),
+  //   });
+  //   localStorage.setItem("alarms", JSON.stringify(alarms));
+  //   window.location.href = "/following?status=good";
+  // };
+  //var createAlarm = () => window.location.href = '/following?status=bad';
+  const lastUpdate = new Date().toUTCString();
+  const navigate = useNavigate();
+  const token = localStorage.getItem("token");
+  const email = localStorage.getItem("email");
+
+  const createAlarm = async (e) => {
+    e.preventDefault();
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    };
+
+    try {
+      const { data } = await axios.post(
+        "/api/alarms/create",
+        { email, title, description, search, total, date, lastUpdate },
+        config
+      );
+      navigate("/following");
+    } catch (error) {
+      setError(error.response.data.error);
+      setTimeout(() => {
+        setError("");
+      }, 5000);
+    }
+  };
 
   return (
     <View style={styles.container}>
       <div className="relative flex flex-col min-w-0 break-words w-full mb-6 bg-white">
         <div className="flex-auto p-5 lg:p-10">
           <h4 className="text-2xl font-semibold">
-            Enter a title then hashtag or keyword or account you want to follow soon.
+            Enter a title then hashtag or keyword or account you want to follow
+            soon.
           </h4>
           <div className="relative w-full mb-3 mt-8">
             <label
@@ -30,10 +71,11 @@ export default function Form() {
             >
               Title
             </label>
-            <TextInput
-              placeholder={"titre"}
-              onChangeText={onChangeTitre}
-              value={titre}
+            <input
+              placeholder="titre"
+              onChange={(e) => onChangeTitle(e.target.value)}
+              value={title}
+              className="border-2 border-gray-500 px-3 py-3 placeholder-blueGray-300 text-black bg-white rounded-xl text-sm focus:ring w-full ease-linear transition-all duration-150"
             />
           </div>
           <div className="relative w-full mb-3 mt-8">
@@ -43,7 +85,9 @@ export default function Form() {
             >
               Type of alarm
             </label>
-            <i><u>From a word, hashtags, tokens</u></i>
+            <i>
+              <u>From a word, hashtags, tokens</u>
+            </i>
           </div>
           <div className="AlarmPerTokens">
             <div className="relative w-full mb-3">
@@ -53,11 +97,11 @@ export default function Form() {
               >
                 Character string
               </label>
-              <TextInput
-                style={{width: '50%', minWidth: '340px'}}
-                placeholder={"Tokens"}
-                onChangeText={onChangeSearch}
+              <input
+                placeholder="tokens"
+                onChange={(e) => onChangeSearch(e.target.value)}
                 value={search}
+                className="border-2 border-gray-500 px-3 py-3 placeholder-blueGray-300 text-black bg-white rounded-xl text-sm focus:ring w-full ease-linear transition-all duration-150"
               />
             </div>
 
@@ -68,11 +112,12 @@ export default function Form() {
               >
                 Occurrence before trigger
               </label>
-              <TextInput
-                style={{width: '10%', minWidth: '40px'}}
-                placeholder={"Integer"}
-                onChangeText={onChangeMaxCount}
-                value={maxCount}
+
+              <input
+                placeholder="integer"
+                onChange={(e) => onChangeTotal(e.target.value)}
+                value={total}
+                className="border-2 border-gray-500 px-3 py-3 placeholder-blueGray-300 text-black bg-white rounded-xl text-sm focus:ring w-full ease-linear transition-all duration-150"
               />
             </div>
 
@@ -83,11 +128,15 @@ export default function Form() {
               >
                 Since
               </label>
-              <p>The format must be respected : <u>2022-01-21T21:00:00Z</u></p>
-              <TextInput
-                placeholder={"2022-01-21T21:00:00Z"}
-                onChangeText={onChangeDate}
+              <p>
+                The format must be respected: <u>2022-01-21T21:00:00Z</u>
+              </p>
+
+              <input
+                placeholder="2022-01-21T21:00:00Z"
+                onChange={(e) => onChangeDate(e.target.value)}
                 value={date}
+                className="border-2 border-gray-500 px-3 py-3 placeholder-blueGray-300 text-black bg-white rounded-xl text-sm focus:ring w-full ease-linear transition-all duration-150"
               />
             </div>
 
@@ -98,11 +147,12 @@ export default function Form() {
               >
                 Description
               </label>
-              <TextInput
-                style={{width: '100%', height: '150px'}}
-                placeholder={"Description"}
-                onChangeText={onChangeDescription}
+
+              <textarea
+                placeholder="description"
+                onChange={(e) => onChangeDescription(e.target.value)}
                 value={description}
+                className="border-2 border-gray-500 px-3 py-3 placeholder-blueGray-300 text-black bg-white rounded-xl text-sm focus:ring w-full ease-linear transition-all duration-150"
               />
             </div>
           </div>
@@ -118,7 +168,6 @@ export default function Form() {
         </div>
       </div>
     </View>
-
   );
 }
 
@@ -126,6 +175,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "center",
-    justifyContent: "center"
-  }
+    justifyContent: "center",
+  },
 });

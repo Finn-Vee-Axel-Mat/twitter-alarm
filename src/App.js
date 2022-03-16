@@ -20,7 +20,7 @@ function App() {
         <Route path="/reset-password/:resetToken" element={<ResetPassword />} />
         <Route path="/following" element={<Following />} />
         <Route path="/create-alarm" element={<CreateAlarm />} />
-        <Route path="/tweet" element={<Alarm />} />
+        <Route path="/tweet/:id" element={<Alarm />} />
         <Route path="/settings" element={<Settings />} />
       </Routes>
     </BrowserRouter>

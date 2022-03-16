@@ -12,7 +12,6 @@ const Login = () => {
 
   const navigate = useNavigate();
 
-
   useEffect(() => {
     if (localStorage.getItem("token")) {
       navigate("/following");

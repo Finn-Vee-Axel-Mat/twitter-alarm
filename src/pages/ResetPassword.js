@@ -13,6 +13,7 @@ const ResetPassword = () => {
 
   const navigate = useNavigate();
   const { resetToken } = useParams();
+
   useEffect(() => {
     if (localStorage.getItem("token")) {
       navigate("/following");
