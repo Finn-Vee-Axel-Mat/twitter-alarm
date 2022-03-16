@@ -137,7 +137,7 @@ export default function Following() {
     <>
       <Navbar fixed />
       <section className="relative block h-70-px" />
-      <div className="container mx-auto px-4">
+      <div style={{minHeight: '82vh'}} className="container mx-auto px-4">
         <h2
           style={
             window.location.search.substring(8) == "good" &&

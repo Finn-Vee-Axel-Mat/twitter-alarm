@@ -28,6 +28,7 @@ export default function Settings() {
     <>
       <NavbarSub fixed />
       <section className="relative block h-70-px" />
+      <div style={{minHeight: '82vh'}}>
       <div className="container mx-auto px-4">
         <h1 className="mx-45 my-6 underline px-4 text-3xl font-bold block tracking-wide text-blueGray-800">
           Settings
@@ -89,6 +90,7 @@ export default function Settings() {
               value={mail_isEnabled}
             />
           </div>
+      </div>
       </div>
 
 

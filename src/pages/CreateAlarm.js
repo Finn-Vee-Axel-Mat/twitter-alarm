@@ -11,7 +11,7 @@ export default function CreateAlarm() {
     <>
       <NavbarSub fixed />
       <section className="relative block h-70-px" />
-      <div className="container mx-auto px-4">
+      <div style={{minHeight: '102vh'}} className="container mx-auto px-4">
         <h1 className="mx-45 my-6 underline px-4 text-3xl font-bold block tracking-wide text-blueGray-800">
           Create Alarm
         </h1>
