@@ -58,7 +58,7 @@ export default function Data({ item }) {
           <TouchableOpacity
             style={{ margin: "10px" }}
             onPress={() => {
-              window.location.href = "/tweet?id=" + item.item._id;
+              window.location.href = "/tweet/" + item.item._id;
             }}
           >
             <Image
