@@ -1,5 +1,15 @@
 import fetch from "node-fetch";
 
+import axios from "axios";
+
+export default axios.create({
+  baseURL: "http://localhost:8080/https://api.twitter.com/2",
+  headers: {
+    Authorization:
+      "Bearer AAAAAAAAAAAAAAAAAAAAAKZtYQEAAAAA8OWu8GKNSLSfitU9OSL86dD9YkI%3D2YmR2FfRDr1Kqo4yrL0sQArmgvRHWtTxPQN6pcdsxiidwktmSn",
+  },
+});
+
 export const tweets = async () => {
   const TOKEN = `AAAAAAAAAAAAAAAAAAAAAKZtYQEAAAAA8OWu8GKNSLSfitU9OSL86dD9YkI%3D2YmR2FfRDr1Kqo4yrL0sQArmgvRHWtTxPQN6pcdsxiidwktmSn`;
   const SINCE = `2022-01-21T21:00:00Z`;
@@ -27,6 +37,8 @@ export const tweets = async () => {
     console.log(response);
   });
 };
+
+export const searchTweets = async () => {};
 
 export const getTweets = async (ids) => {
   if (ids.length === 0) {

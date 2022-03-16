@@ -7,6 +7,8 @@ const alarmRoutes = require("./routes/alarmRoutes");
 const bodyParser = require("body-parser");
 const requireAuth = require("./middlewares/requireAuth");
 const helmet = require("helmet");
+const cors_proxy = require("cors-anywhere");
+
 const app = express();
 
 app.use(helmet()); // not work
@@ -33,3 +35,18 @@ app.get("/", requireAuth, (req, res) => {
 app.listen(PORT, () => {
   console.log(`Listening on port ${PORT}...`);
 });
+
+// Listen on a specific host via the HOST environment variable
+const corsHost = "localhost";
+// Listen on a specific port via the PORT environment variable
+const corsPort = 8080;
+
+cors_proxy
+  .createServer({
+    originWhitelist: [], // Allow all origins
+    requireHeader: ["origin", "x-requested-with"],
+    removeHeaders: ["cookie", "cookie2"],
+  })
+  .listen(corsPort, corsHost, function () {
+    console.log("Running CORS Anywhere on " + corsHost + ":" + corsPort);
+  });

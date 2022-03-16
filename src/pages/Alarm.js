@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-import { TouchableOpacity, Image } from "react-native";
+import { TouchableOpacity, Image, FlatList, View } from "react-native";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import NavbarSub from "../components/NavbarSub.js";
 import Tweet from "../components/Tweet.js";
 import Pagination from "../components/Pagination.js";
 import FooterSmall from "../components/FooterSmall.js";
+import twitter from "../scripts/twitter.js";
 
 export default function Following() {
   const navigate = useNavigate();
@@ -15,6 +16,7 @@ export default function Following() {
   const token = localStorage.getItem("token");
   const email = localStorage.getItem("email");
   const [alarm, setAlarm] = useState([]);
+  const [tweets, setTweets] = useState([]);
 
   const getAlarm = async () => {
     const config = {
@@ -56,8 +58,31 @@ export default function Following() {
 
   console.log(alarm);
 
+  const getTweets = async () => {
+    await twitter
+      .get("/tweets/search/recent", {
+        params: {
+          query: alarm.search, //sometimes bad request
+          "tweet.fields": "created_at,author_id",
+        },
+      })
+      .then((res) => {
+        setTweets(res.data.data);
+      })
+      .catch((err) => {
+        throw err;
+      });
+  };
+
+  //user.fiels: created_at,description,entities,id,location,name,pinned_tweet_id,profile_image_url,protected,public_metrics,url,username,verified,withheld
+
+  //media.fiels: duration_ms,height,media_key,non_public_metrics,organic_metrics,preview_image_url,promoted_metrics,public_metrics,type,url,width
+
+  //tweet.fiels: attachments,author_id,context_annotations,conversation_id,created_at,entities,geo,id,in_reply_to_user_id,lang,non_public_metrics,organic_metrics,possibly_sensitive,promoted_metrics,public_metrics,referenced_tweets,reply_settings,source,text,withheld
+
   useEffect(() => {
     getAlarm();
+    getTweets();
   }, []);
 
   return (
@@ -82,7 +107,7 @@ export default function Following() {
               {alarm.title}
             </a>
             <span className="text-sm text-blueGray-600">
-              Updated {alarm.lastUpdate} minutes ago !
+              Updated {new Date(alarm.lastUpdate).toDateString} minutes ago !
             </span>
           </div>
         </div>
@@ -115,8 +140,8 @@ export default function Following() {
             padding: "10px 10px 10px 10px",
           }}
         >
-          <h1 style={{ fontSize: "17px", color: "#1e293b", fontWeight: 700 }}>
-            <u>Description :</u>
+          <h1 className="text-lg font-bold">
+            <u>Description:</u>
           </h1>
           <p>{alarm.description}</p>
         </div>
@@ -128,8 +153,8 @@ export default function Following() {
             padding: "10px 10px 10px 10px",
           }}
         >
-          <h1 style={{ fontSize: "17px", color: "#1e293b", fontWeight: 700 }}>
-            <u>Tokens :</u>
+          <h1 className="text-lg font-bold">
+            <u>Tokens:</u>
           </h1>
           <p>
             <i>{alarm.search}</i>
@@ -152,29 +177,21 @@ export default function Following() {
           </TouchableOpacity>
         </div>
 
-        <div
-          style={{ backgroundColor: "#eaeaea", padding: "15px" }}
-          className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 rounded-xl "
-        >
-          <h1 style={{ fontSize: "17px", color: "#1e293b", fontWeight: 700 }}>
-            <u>Lasts tweets :</u>
+        <div className="relative flex flex-col min-w-0 break-words w-full mb-6 rounded-xl p-4 bg-gray-100">
+          <h1 className="text-lg font-bold">
+            <u>Lasts tweets:</u>
           </h1>
-          <Tweet />
-          <Tweet />
-          <Tweet />
-          <Tweet />
-          <Tweet />
-          <Tweet />
-          <Tweet />
-          <Tweet />
-          <Tweet />
-          <Tweet />
-          <Tweet />
-          <Tweet />
-          <Tweet />
-          <Tweet />
-          <Tweet />
-          <Tweet />
+
+          <FlatList
+            data={tweets}
+            keyExtractor={(item) => item.id}
+            renderItem={(item) => {
+              return <Tweet item={item} />;
+            }}
+            ItemSeparatorComponent={() => {
+              return <View style={{ height: 1, backgroundColor: "#808080" }} />;
+            }}
+          />
         </div>
       </div>
       <FooterSmall className="bg-blueGray-800" />
