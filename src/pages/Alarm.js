@@ -182,7 +182,7 @@ export default function Following() {
           />
         </div>
       </div>
-      <FooterSmall className="bg-slate-800" />
+      <FooterSmall />
     </>
   );
 }

@@ -257,7 +257,11 @@ export default function Following() {
           <Pagination />
         </div>
       </div>
-      <FooterSmall className="bg-slate-800" />
+      {alarms.length > 6 || window.innerWidth < 720 ? (
+        <FooterSmall />
+      ) : (
+        <FooterSmall absolute />
+      )}
     </>
   );
 }

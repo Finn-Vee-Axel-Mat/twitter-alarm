@@ -175,7 +175,7 @@ export default function Settings() {
       </div>
 
       <br />
-      <FooterSmall className="bg-slate-800" />
+      <FooterSmall absolute />
     </>
   );
 }
