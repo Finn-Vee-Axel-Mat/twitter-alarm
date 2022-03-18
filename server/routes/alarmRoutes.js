@@ -33,7 +33,7 @@ router.post("/", async (req, res) => {
   res.send(alarms);
 });
 
-// get alarm's info
+// get alarm by id info
 router.get("/:id", async (req, res) => {
   const id = req.params.id;
   Alarm.findById(id).then((data) => {
@@ -65,6 +65,15 @@ router.delete("/:id", async (req, res) => {
         message: "Cound not delete data with id=" + id,
       });
     });
+});
+
+// find alarm
+router.post("/find", async (req, res) => {
+  const alarm = await Alarm.find({
+    email: req.body.email,
+    title: { $regex: `${req.body.title}`, $options: "i" },
+  });
+  res.send(alarm);
 });
 
 module.exports = router;

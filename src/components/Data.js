@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, TouchableOpacity, Image } from "react-native";
+import { TouchableOpacity } from "react-native";
 
 export default function Data({ item }) {
   return (
@@ -21,11 +21,11 @@ export default function Data({ item }) {
               <a
                 href={"/tweet/" + item.item._id}
                 target="_blank"
-                className="text-3xl font-bold block tracking-wide text-blueGray-800"
+                className="text-3xl font-bold block tracking-wide text-slate-800"
               >
                 {item.item.title}
               </a>
-              <span className="text-sm text-blueGray-600">
+              <span className="text-sm text-slate-600">
                 Updated {item.delay} seconds ago
               </span>
             </div>
@@ -37,7 +37,7 @@ export default function Data({ item }) {
           <div className="w-full lg:w-4/12 px-4 lg:order-2 lg:text-right lg:self-center">
             <div className="px-3">
               <div className="relative pt-1">
-                <span className="text-sm text-blueGray-600">
+                <span className="text-sm text-slate-600">
                   Matching tweets : {item.item.occurence}/{item.item.total}
                 </span>
                 <div className="overflow-hidden h-2 mb-4 text-xs flex rounded bg-blue-200">
@@ -58,13 +58,10 @@ export default function Data({ item }) {
           <TouchableOpacity
             style={{ margin: "10px" }}
             onPress={() => {
-              window.location.href = "/tweet?id=" + item.item._id;
+              window.location.href = "/tweet/" + item.item._id;
             }}
           >
-            <Image
-              style={{ marginLeft: "25px", height: "17px", width: "17px" }}
-              source={require("../assets/plus-outline.png")}
-            />
+            <i class="fas fa-plus-circle" />
           </TouchableOpacity>
         </div>
       </div>

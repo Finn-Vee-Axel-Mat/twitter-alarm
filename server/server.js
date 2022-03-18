@@ -39,7 +39,7 @@ app.listen(PORT, () => {
 // Listen on a specific host via the HOST environment variable
 const corsHost = "localhost";
 // Listen on a specific port via the PORT environment variable
-const corsPort = 8080;
+const corsPort = 4000;
 
 cors_proxy
   .createServer({

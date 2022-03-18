@@ -1,7 +1,4 @@
-/*eslint-disable*/
-import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
-
+import React from "react";
 import IndexNavbar from "../components/IndexNavbar.js";
 import Footer from "../components/Footer.js";
 
@@ -13,10 +10,10 @@ export default function Home() {
         <div className="container mx-auto items-center flex flex-wrap">
           <div className="w-full md:w-8/12 lg:w-6/12 xl:w-6/12 px-4">
             <div className="pt-32 sm:pt-0">
-              <h2 className="font-bold text-4xl text-blueGray-800">
+              <h2 className="font-bold text-4xl text-slate-800">
                 Alert your tweet
               </h2>
-              <p className="mt-4 text-lg leading-relaxed text-blueGray-500">
+              <p className="mt-4 text-lg leading-relaxed text-slate-500">
                 This topic deals with the development of an alert Website for
                 twitter. In particular, it is requested that a user can register
                 one (or more) words/tokens, which he wants to monitor. In case a
@@ -25,7 +22,14 @@ export default function Home() {
                 visualization of should be presented on the Website.
               </p>
 
-              <div style={localStorage.getItem("token") ? {display: 'none'} : {display: 'block'}} className="mt-12">
+              <div
+                style={
+                  localStorage.getItem("token")
+                    ? { display: "none" }
+                    : { display: "block" }
+                }
+                className="mt-12"
+              >
                 <a
                   href="/login"
                   target="_blank"
@@ -42,7 +46,14 @@ export default function Home() {
                   Sign Up
                 </a>
               </div>
-              <div style={localStorage.getItem("token") ? {display: 'block'} : {display: 'none'}} className="mt-12">
+              <div
+                style={
+                  localStorage.getItem("token")
+                    ? { display: "block" }
+                    : { display: "none" }
+                }
+                className="mt-12"
+              >
                 <a
                   href="/following"
                   className="following ml-1 text-blue-500 bg-transparent border border-solid border-blue-500 hover:bg-blue-500 hover:text-white active:bg-blue-600 font-bold uppercase text-sm px-6 py-3  rounded-full outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"

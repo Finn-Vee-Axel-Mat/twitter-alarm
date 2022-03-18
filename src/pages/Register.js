@@ -74,18 +74,18 @@ const Register = () => {
               <div className="relative flex flex-col min-w-0 break-words w-full mb-6 bg-white rounded-xl">
                 <div className="rounded-t mb-0 px-6 py-6">
                   <div className="text-center mb-3">
-                    <h6 className="text-blueGray-800 text-2xl font-bold">
+                    <h6 className="text-slate-800 text-2xl font-bold">
                       Sign up
                     </h6>
                   </div>
                 </div>
                 <div className="flex-auto px-4 lg:px-10 py-6 pt-0">
-                  <div className="text-blueGray-400 text-center mb-3 font-bold"></div>
+                  <div className="text-slate-400 text-center mb-3 font-bold"></div>
 
                   <form onSubmit={register}>
                     <div className="relative w-full mb-3">
                       <label
-                        className="block uppercase text-blueGray-600 text-sm font-bold mb-2"
+                        className="block uppercase text-slate-600 text-sm font-bold mb-2"
                         htmlFor="grid-password"
                       >
                         Email
@@ -96,13 +96,13 @@ const Register = () => {
                         placeholder="Email"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
-                        className="border px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded-full text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                        className="border px-3 py-3 placeholder-slate-300 text-slate-600 bg-white rounded-full text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                       />
                     </div>
 
                     <div className="relative w-full mb-3">
                       <label
-                        className="block uppercase text-blueGray-600 text-sm font-bold mb-2"
+                        className="block uppercase text-slate-600 text-sm font-bold mb-2"
                         htmlFor="grid-password"
                       >
                         Password
@@ -112,13 +112,13 @@ const Register = () => {
                         required
                         placeholder="Password"
                         onChange={(e) => setPassword(e.target.value)}
-                        className="border px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded-full text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                        className="border px-3 py-3 placeholder-slate-300 text-slate-600 bg-white rounded-full text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                       />
                     </div>
 
                     <div className="relative w-full mb-3">
                       <label
-                        className="block uppercase text-blueGray-600 text-sm font-bold mb-2"
+                        className="block uppercase text-slate-600 text-sm font-bold mb-2"
                         htmlFor="grid-password"
                       >
                         Confirm Password
@@ -128,7 +128,7 @@ const Register = () => {
                         required
                         placeholder="Confirm Password"
                         onChange={(e) => setConfirmPassword(e.target.value)}
-                        className="border px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded-full text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                        className="border px-3 py-3 placeholder-slate-300 text-slate-600 bg-white rounded-full text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                       />
                     </div>
 
@@ -138,9 +138,9 @@ const Register = () => {
                           id="customCheckLogin"
                           type="checkbox"
                           required
-                          className="form-checkbox border rounded-lg text-blueGray-700 ml-1 w-5 h-5 ease-linear transition-all duration-150"
+                          className="form-checkbox border rounded-lg text-slate-700 ml-1 w-5 h-5 ease-linear transition-all duration-150"
                         />
-                        <span className="ml-2 text-sm font-semibold text-blueGray-600">
+                        <span className="ml-2 text-sm font-semibold text-slate-600">
                           I agree with the{" "}
                           <a
                             href="#pablo"
@@ -162,7 +162,7 @@ const Register = () => {
                     <div className="text-center mt-2">
                       <button
                         type="submit"
-                        className="bg-blue-500 text-white active:bg-blueGray-600 text-sm font-bold uppercase px-6 py-3 rounded-full shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150"
+                        className="bg-blue-500 text-white active:bg-slate-600 text-sm font-bold uppercase px-6 py-3 rounded-full shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150"
                       >
                         Create Account
                       </button>
@@ -172,7 +172,7 @@ const Register = () => {
                   <div className="flex flex-wrap mt-6 relative">
                     <div className="w-1/2"></div>
                     <div className="w-1/2 text-right">
-                      <Link to="/login" className="text-blueGray-800">
+                      <Link to="/login" className="text-slate-800">
                         <small>Already have an account?</small>
                       </Link>
                     </div>

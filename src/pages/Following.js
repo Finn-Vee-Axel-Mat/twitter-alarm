@@ -27,6 +27,7 @@ export default function Following() {
   }, []);
 
   const [alarms, setAlarms] = useState([]);
+  const [search, setSearch] = useState([]);
   const token = localStorage.getItem("token");
   const email = localStorage.getItem("email");
 
@@ -40,6 +41,25 @@ export default function Following() {
 
     await axios
       .post("/api/alarms/", { email }, config)
+      .then((res) => {
+        console.log(res.data);
+        setAlarms(res.data);
+      })
+      .catch((err) => {
+        throw err;
+      });
+  };
+
+  const searchAlarm = async (e) => {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    };
+
+    await axios
+      .post("/api/alarms/find", { email, title: search }, config)
       .then((res) => {
         console.log(res.data);
         setAlarms(res.data);
@@ -135,7 +155,7 @@ export default function Following() {
 
   return (
     <>
-      <Navbar fixed />
+      <Navbar fixed page="following" />
       <section className="relative block h-70-px" />
       <div className="container mx-auto px-4">
         <h2
@@ -160,13 +180,36 @@ export default function Following() {
         >
           Incorrect creation of the alarm!
         </h2>
-        <h1 className="mx-45 my-6 underline px-4 text-3xl font-bold block tracking-wide text-blueGray-800">
-          Following
-        </h1>
-        <div
-          style={{ margin: "25px" }}
-          className="flex justify-end items-center"
-        >
+
+        <div className="flex items-center justify-between lg: my-2 mx-1">
+          <h1 className="mx-45 my-6 underline px-4 text-3xl font-bold block tracking-wide text-slate-800">
+            Following
+          </h1>
+
+          {/* Search */}
+          <div className="relative items-stretch mx-6">
+            <input
+              type="text"
+              className="px-4 py-1 h-8 border-2 border-solid border-slate-600 rounded-full text-sm leading-snug text-slate-700 bg-white shadow-none outline-none focus:outline-none w-full font-normal flex-1 placeholder-slate-600"
+              placeholder="Search"
+              onChange={(e) => setSearch(e.target.value)}
+              onKeyPress={(e) => {
+                if (e.key === "Enter") return searchAlarm();
+              }}
+              value={search}
+            />
+            <button
+              onClick={searchAlarm}
+              type="button"
+              className="z-10 h-full leading-snug font-normal absolute text-center text-slate-800 bg-transparent rounded text-base items-center justify-center right-0 pr-3 py-1"
+            >
+              <i className="fas fa-search" />
+            </button>
+          </div>
+        </div>
+
+        {/* Next update */}
+        <div className="flex justify-end items-center m-6">
           <span className="mr-4 ">Next update: {timeLeft} seconds.</span>
           <button
             type="button"
@@ -177,19 +220,16 @@ export default function Following() {
             }}
             className="text-white bg-blue-500 font-bold uppercase text-xs px-9 py-2 rounded-full shadow hover:shadow-md outline-none focus:outline-none ease-linear transition-all duration-150"
           >
+            <i className="hidden lg:fas fa-sync pr-2" />
             Click to refresh
           </button>
         </div>
 
-        <img
-          width="60px"
-          style={
-            timeLeft < 58
-              ? { width: "30px", margin: "auto", display: "none" }
-              : { width: "30px", margin: "auto" }
-          }
-          src="https://askcodez.com/images3/157446935584697.gif"
-        />
+        {timeLeft < 58 ? null : (
+          <div className="text-center text-blue-500">
+            <i class="fa-3x fas fa-circle-notch fa-spin" />
+          </div>
+        )}
 
         <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 rounded-xl ">
           <FlatList
@@ -217,7 +257,7 @@ export default function Following() {
           <Pagination />
         </div>
       </div>
-      <FooterSmall className="bg-blueGray-800" />
+      <FooterSmall className="bg-slate-800" />
     </>
   );
 }

@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 
 import IndexNavbar from "../components/IndexNavbar.js";
@@ -11,14 +11,7 @@ const ResetPassword = () => {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
 
-  const navigate = useNavigate();
   const { resetToken } = useParams();
-
-  useEffect(() => {
-    if (localStorage.getItem("token")) {
-      navigate("/following");
-    }
-  }, []);
 
   const resetPassword = async (e) => {
     e.preventDefault();
@@ -67,7 +60,7 @@ const ResetPassword = () => {
               <div className="relative flex flex-col min-w-0 break-words w-full mb-6 bg-white rounded-xl">
                 <div className="rounded-t mb-0 px-6 py-6">
                   <div className="text-center mb-3">
-                    <h6 className="text-blueGray-800 text-2xl font-bold">
+                    <h6 className="text-slate-800 text-2xl font-bold">
                       Reset password
                     </h6>
                   </div>
@@ -76,7 +69,7 @@ const ResetPassword = () => {
                   <form onSubmit={resetPassword}>
                     <div className="relative w-full mb-3">
                       <label
-                        className="block uppercase text-blueGray-800 text-sm font-bold mb-2"
+                        className="block uppercase text-slate-800 text-sm font-bold mb-2"
                         htmlFor="grid-password"
                       >
                         New Password
@@ -87,13 +80,13 @@ const ResetPassword = () => {
                         placeholder="Password"
                         autoComplete="true"
                         onChange={(e) => setPassword(e.target.value)}
-                        className="border px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded-full text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                        className="border px-3 py-3 placeholder-slate-300 text-slate-600 bg-white rounded-full text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                       />
                     </div>
 
                     <div className="relative w-full mb-3">
                       <label
-                        className="block uppercase text-blueGray-600 text-sm font-bold mb-2"
+                        className="block uppercase text-slate-600 text-sm font-bold mb-2"
                         htmlFor="grid-password"
                       >
                         Confirm Password
@@ -103,7 +96,7 @@ const ResetPassword = () => {
                         required
                         placeholder="Confirm Password"
                         onChange={(e) => setConfirmPassword(e.target.value)}
-                        className="border px-3 py-3 placeholder-blueGray-300 text-blueGray-600 bg-white rounded-full text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
+                        className="border px-3 py-3 placeholder-slate-300 text-slate-600 bg-white rounded-full text-sm shadow focus:outline-none focus:ring w-full ease-linear transition-all duration-150"
                       />
                     </div>
 
@@ -121,7 +114,7 @@ const ResetPassword = () => {
                     <div className="text-center mt-2">
                       <button
                         type="submit"
-                        className="bg-blue-500 text-white active:bg-blueGray-600 text-sm font-bold uppercase px-6 py-3 rounded-full shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150"
+                        className="bg-blue-500 text-white active:bg-slate-600 text-sm font-bold uppercase px-6 py-3 rounded-full shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 w-full ease-linear transition-all duration-150"
                       >
                         Confirm
                       </button>
@@ -130,12 +123,12 @@ const ResetPassword = () => {
 
                   <div className="flex flex-wrap mt-6 relative">
                     <div className="w-1/2">
-                      <Link to="/login" className="text-blueGray-800">
+                      <Link to="/login" className="text-slate-800">
                         <small>Have an account?</small>
                       </Link>
                     </div>
                     <div className="w-1/2 text-right">
-                      <Link to="/register" className="text-blueGray-800">
+                      <Link to="/register" className="text-slate-800">
                         <small>Create new account</small>
                       </Link>
                     </div>

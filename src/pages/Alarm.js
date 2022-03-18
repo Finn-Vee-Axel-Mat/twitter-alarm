@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-import { TouchableOpacity, Image, FlatList, View } from "react-native";
-import { Link, useNavigate, useParams } from "react-router-dom";
-import NavbarSub from "../components/NavbarSub.js";
+import { TouchableOpacity, FlatList, View } from "react-native";
+import { useNavigate, useParams } from "react-router-dom";
 import Tweet from "../components/Tweet.js";
-import Pagination from "../components/Pagination.js";
+import Navbar from "../components/Navbar.js";
 import FooterSmall from "../components/FooterSmall.js";
 import twitter from "../scripts/twitter.js";
 
@@ -62,7 +61,7 @@ export default function Following() {
     await twitter
       .get("/tweets/search/recent", {
         params: {
-          query: alarm.search, //sometimes bad request
+          query: alarm.title, //sometimes bad request
           "tweet.fields": "created_at,author_id",
         },
       })
@@ -74,12 +73,6 @@ export default function Following() {
       });
   };
 
-  //user.fiels: created_at,description,entities,id,location,name,pinned_tweet_id,profile_image_url,protected,public_metrics,url,username,verified,withheld
-
-  //media.fiels: duration_ms,height,media_key,non_public_metrics,organic_metrics,preview_image_url,promoted_metrics,public_metrics,type,url,width
-
-  //tweet.fiels: attachments,author_id,context_annotations,conversation_id,created_at,entities,geo,id,in_reply_to_user_id,lang,non_public_metrics,organic_metrics,possibly_sensitive,promoted_metrics,public_metrics,referenced_tweets,reply_settings,source,text,withheld
-
   useEffect(() => {
     getAlarm();
     getTweets();
@@ -87,7 +80,7 @@ export default function Following() {
 
   return (
     <>
-      <NavbarSub fixed />
+      <Navbar fixed page="alarm" />
       <section className="relative block h-70-px" />
       <div
         style={
@@ -97,19 +90,22 @@ export default function Following() {
         }
         className="container mx-auto px-4"
       >
-        <div className="w-full lg:w-7/12 px-4 lg:order-1">
+        <div className="w-full px-4 lg:order-1 flex justify-between">
           <div className="mr-4 p-3 text-left">
             <a
               href="/tweet"
               target="_blank"
-              className="text-3xl font-bold block tracking-wide text-blueGray-800"
+              className="text-3xl font-bold block tracking-wide text-slate-800"
             >
               {alarm.title}
             </a>
-            <span className="text-sm text-blueGray-600">
+            <span className="text-sm text-slate-600">
               Updated {new Date(alarm.lastUpdate).toDateString} minutes ago !
             </span>
           </div>
+          <TouchableOpacity style={{ margin: "10px" }} onPress={deleteAlarm}>
+            <i class="fa-2x fas fa-trash-alt pt-4" />
+          </TouchableOpacity>
         </div>
         <div
           style={{ width: "100%" }}
@@ -117,7 +113,7 @@ export default function Following() {
         >
           <div className="px-3">
             <div className="relative pt-1">
-              <span className="text-sm text-blueGray-600">
+              <span className="text-sm text-slate-600">
                 Matching tweets : {alarm.occurence}/{alarm.total}
               </span>
               <div className="overflow-hidden h-2 mb-4 text-xs flex rounded bg-blue-200">
@@ -167,15 +163,7 @@ export default function Following() {
             display: "flex",
             justifyContent: "center",
           }}
-        >
-          <TouchableOpacity style={{ margin: "10px" }} onPress={deleteAlarm}>
-            <Image
-              style={{ marginLeft: "24px", height: "30px", width: "30px" }}
-              source={require("../assets/trash-can-outline.png")}
-            />
-            <h3>Supprimer</h3>
-          </TouchableOpacity>
-        </div>
+        ></div>
 
         <div className="relative flex flex-col min-w-0 break-words w-full mb-6 rounded-xl p-4 bg-gray-100">
           <h1 className="text-lg font-bold">
@@ -194,7 +182,7 @@ export default function Following() {
           />
         </div>
       </div>
-      <FooterSmall className="bg-blueGray-800" />
+      <FooterSmall className="bg-slate-800" />
     </>
   );
 }

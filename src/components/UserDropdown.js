@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from "react";
-import { StyleSheet } from "react-native";
+import React, { useEffect, useState, createRef } from "react";
 import { createPopper } from "@popperjs/core";
 import { useNavigate } from "react-router-dom";
 
 const UserDropdown = () => {
   // dropdown props
-  const [dropdownPopoverShow, setDropdownPopoverShow] = React.useState(false);
-  const btnDropdownRef = React.createRef();
-  const popoverDropdownRef = React.createRef();
+  const [dropdownPopoverShow, setDropdownPopoverShow] = useState(false);
+  const btnDropdownRef = createRef();
+  const popoverDropdownRef = createRef();
+
   const openDropdownPopover = () => {
     createPopper(btnDropdownRef.current, popoverDropdownRef.current, {
       placement: "bottom-start",
@@ -37,7 +37,7 @@ const UserDropdown = () => {
   return (
     <>
       <a
-        className="lg:text-white lg:hover:text-blueGray-200 text-blueGray-700 px-1 flex items-center text-xs uppercase font-bold"
+        className="lg:text-white lg:hover:text-slate-200 text-slate-700 px-1 flex items-center text-xs uppercase font-bold"
         href="#"
         ref={btnDropdownRef}
         onClick={(e) => {
@@ -57,7 +57,7 @@ const UserDropdown = () => {
       >
         <a
           className={
-            "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
+            "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-slate-700"
           }
         >
           <p
@@ -72,37 +72,18 @@ const UserDropdown = () => {
           </p>
         </a>
         <a
-          href="#"
+          href="/settings"
           className={
-            "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
+            "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-slate-700"
           }
-          onClick={(e) => e.preventDefault()}
         >
-          Profile
+          Settings
         </a>
-        <a
-          href="#"
-          className={
-            "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
-          }
-          onClick={() => localStorage.removeItem("alarms")}
-        >
-          Delete alarms
-        </a>
-        <a
-          href="#"
-          className={
-            "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
-          }
-          onClick={(e) => navigate("/settings")}
-        >
-        Settings
-        </a>
-        <div className="h-0 my-2 border border-solid border-blueGray-100" />
+        <div className="h-0 my-2 border border-solid border-slate-100" />
         <button
           onClick={logout}
           className={
-            "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-blueGray-700"
+            "text-sm py-2 px-4 font-normal block w-full whitespace-nowrap bg-transparent text-slate-700"
           }
         >
           Sign out
