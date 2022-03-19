@@ -5,14 +5,7 @@ export default function Data({ item }) {
   return (
     <>
       <div className="px-6 mb-3">
-        <div
-          style={
-            item.item.occurence >= item.item.total
-              ? { borderRadius: "12px", backgroundColor: "#30d930" }
-              : {}
-          }
-          className="flex flex-wrap justify-center"
-        >
+        <div className="flex flex-wrap justify-center">
           <div
             style={{ margin: "10px" }}
             className="w-full lg:w-4/12 px-4 lg:order-1"
@@ -49,20 +42,24 @@ export default function Data({ item }) {
                           item.item.total
                         ).toString() + "%",
                     }}
-                    className="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-blue-500"
+                    className={
+                      item.item.occurence >= item.item.total
+                        ? "bg-red-500"
+                        : "bg-blue-500"
+                    }
                   ></div>
                 </div>
               </div>
             </div>
           </div>
-          <TouchableOpacity
+          {/* <TouchableOpacity
             style={{ margin: "10px" }}
             onPress={() => {
               window.location.href = "/tweet/" + item.item._id;
             }}
           >
             <i class="fas fa-plus-circle" />
-          </TouchableOpacity>
+          </TouchableOpacity> */}
         </div>
       </div>
     </>

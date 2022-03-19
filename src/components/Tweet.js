@@ -1,27 +1,11 @@
 import React, { useEffect, useState } from "react";
-import twitter from "../scripts/twitter";
+import { getAuthor } from "../scripts/twitterApi";
 
 export default function Tweet({ item }) {
-  console.log(item.item);
   const [author, setAuthor] = useState([]);
 
-  const getAuthor = async () => {
-    await twitter
-      .get(`/users/${item.item.author_id}`, {
-        params: {
-          "user.fields": "profile_image_url,verified",
-        },
-      })
-      .then((res) => {
-        setAuthor(res.data.data);
-      })
-      .catch((err) => {
-        throw err;
-      });
-  };
-
   useEffect(() => {
-    getAuthor();
+    getAuthor(item, setAuthor);
   }, []);
 
   return (

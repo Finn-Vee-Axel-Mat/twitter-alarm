@@ -9,7 +9,6 @@ const alarmSchema = new mongoose.Schema(
     total: Number,
     occurence: Number,
     date: Date,
-    lastUpdate: Date,
   },
   { timestamps: true }
 );

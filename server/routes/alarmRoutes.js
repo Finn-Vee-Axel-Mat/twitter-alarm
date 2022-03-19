@@ -77,3 +77,27 @@ router.post("/find", async (req, res) => {
 });
 
 module.exports = router;
+
+router.put("/:id", async (req, res) => {
+  if (!req.body) {
+    return res.status(400).send({
+      message: "Data to update can not be empty!",
+    });
+  }
+  const id = req.params.id;
+  Alarm.findByIdAndUpdate(id, req.body, { useFindAndModify: false })
+    .then((data) => {
+      if (!data) {
+        res.status(404).send({
+          message: `Cannot update with id=${id}. Maybe data was not found.`,
+        });
+      } else {
+        res.send({ message: "Data was updated successfully." });
+      }
+    })
+    .catch((err) => {
+      res.status(500).send({
+        message: "Error updating data with id=" + id,
+      });
+    });
+});

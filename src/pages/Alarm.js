@@ -1,111 +1,72 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 
 import { TouchableOpacity, FlatList, View } from "react-native";
 import { useNavigate, useParams } from "react-router-dom";
 import Tweet from "../components/Tweet.js";
 import Navbar from "../components/Navbar.js";
 import FooterSmall from "../components/FooterSmall.js";
-import twitter from "../scripts/twitter.js";
+import { getTweets } from "../scripts/twitterApi.js";
+import {
+  getAlarm,
+  deleteAlarm,
+  updateAlarmOccurence,
+} from "../scripts/alarmsApi.js";
 
 export default function Following() {
-  const navigate = useNavigate();
   const { id } = useParams();
-
+  const navigate = useNavigate();
   const token = localStorage.getItem("token");
-  const email = localStorage.getItem("email");
   const [alarm, setAlarm] = useState([]);
   const [tweets, setTweets] = useState([]);
 
-  const getAlarm = async () => {
-    const config = {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    };
-
-    await axios
-      .get(`/api/alarms/${id}`, config)
-      .then((res) => {
-        setAlarm(res.data);
-      })
-      .catch((err) => {
-        throw err;
-      });
-  };
-
-  const deleteAlarm = async () => {
-    const config = {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    };
-
-    await axios.delete(`/api/alarms/${id}`, config).catch((err) => {
-      throw err;
-    });
-    navigate("/following");
-  };
-
-  if (alarm == null) {
-    console.log("ALARME NON TROUVÉE");
-  } else {
-    console.log("ALARME TROUVÉE");
-  }
-
-  console.log(alarm);
-
-  const getTweets = async () => {
-    await twitter
-      .get("/tweets/search/recent", {
-        params: {
-          query: alarm.title, //sometimes bad request
-          "tweet.fields": "created_at,author_id",
-        },
-      })
-      .then((res) => {
-        setTweets(res.data.data);
-      })
-      .catch((err) => {
-        throw err;
-      });
-  };
-
   useEffect(() => {
-    getAlarm();
-    getTweets();
+    getAlarm(id, token, setAlarm);
+    getTweets(alarm, setTweets);
+    updateAlarmOccurence(id, alarm, token);
   }, []);
+
+  const updateHandler = () => {
+    console.log(alarm);
+    getAlarm(id, token, setAlarm);
+  };
 
   return (
     <>
       <Navbar fixed page="alarm" />
       <section className="relative block h-70-px" />
-      <div
-        style={
-          alarm.occurence >= alarm.total
-            ? { borderRadius: "6px", backgroundColor: "#30d930" }
-            : {}
-        }
-        className="container mx-auto px-4"
-      >
+
+      <div className="container mx-auto px-4">
         <div className="w-full px-4 lg:order-1 flex justify-between">
           <div className="mr-4 p-3 text-left">
-            <a
-              href="/tweet"
-              target="_blank"
-              className="text-3xl font-bold block tracking-wide text-slate-800"
-            >
+            <p className="text-3xl font-bold block tracking-wide text-slate-800">
               {alarm.title}
-            </a>
+            </p>
             <span className="text-sm text-slate-600">
               Updated {new Date(alarm.lastUpdate).toDateString} minutes ago !
             </span>
           </div>
-          <TouchableOpacity style={{ margin: "10px" }} onPress={deleteAlarm}>
-            <i class="fa-2x fas fa-trash-alt pt-4" />
-          </TouchableOpacity>
+
+          <div className="flex">
+            <div className="flex justify-end items-center m-6">
+              <button
+                type="button"
+                onClick={updateHandler}
+                className="text-white bg-blue-500 font-bold uppercase text-xs px-9 py-2 rounded-full shadow hover:shadow-md outline-none focus:outline-none ease-linear transition-all duration-150"
+              >
+                <i className="hidden lg:fas fa-sync pr-2" />
+                Click to refresh
+              </button>
+            </div>
+            <TouchableOpacity
+              style={{ margin: "10px" }}
+              onPress={() => {
+                deleteAlarm(id, token);
+                navigate("/following");
+              }}
+            >
+              <i class="fa-2x fas fa-trash-alt pt-4" />
+            </TouchableOpacity>
+          </div>
         </div>
         <div
           style={{ width: "100%" }}
@@ -122,7 +83,11 @@ export default function Following() {
                     width:
                       ((100 * alarm.occurence) / alarm.total).toString() + "%",
                   }}
-                  className="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-blue-500"
+                  className={
+                    alarm.occurence >= alarm.total
+                      ? "bg-red-500"
+                      : "bg-blue-500"
+                  }
                 ></div>
               </div>
             </div>

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { View, StyleSheet } from "react-native";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import { createAlarm } from "../scripts/alarmsApi";
 
 export default function Form() {
   const [title, onChangeTitle] = useState("");
@@ -9,35 +9,14 @@ export default function Form() {
   const [search, onChangeSearch] = useState("");
   const [total, onChangeTotal] = useState("");
   const [date, onChangeDate] = useState("");
-  const [error, setError] = useState("");
 
-  const lastUpdate = new Date().toUTCString();
   const navigate = useNavigate();
   const token = localStorage.getItem("token");
   const email = localStorage.getItem("email");
 
-  const createAlarm = async (e) => {
-    e.preventDefault();
-    const config = {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    };
-
-    try {
-      const { data } = await axios.post(
-        "/api/alarms/create",
-        { email, title, description, search, total, date, lastUpdate },
-        config
-      );
-      navigate("/following");
-    } catch (error) {
-      setError(error.response.data.error);
-      setTimeout(() => {
-        setError("");
-      }, 5000);
-    }
+  const createHandler = () => {
+    createAlarm(email, title, description, search, total, date, token);
+    navigate("/following");
   };
 
   return (
@@ -98,7 +77,7 @@ export default function Form() {
               </label>
 
               <input
-                placeholder="integer"
+                placeholder="ex: 100"
                 onChange={(e) => onChangeTotal(e.target.value)}
                 value={total}
                 className="border-2 border-gray-500 px-3 py-3 placeholder-slate-300 text-black bg-white rounded-xl text-sm focus:ring w-full ease-linear transition-all duration-150"
@@ -112,14 +91,11 @@ export default function Form() {
               >
                 Since
               </label>
-              <p>
-                The format must be respected: <u>2022-01-21T21:00:00Z</u>
-              </p>
 
               <input
-                placeholder="2022-01-21T21:00:00Z"
                 onChange={(e) => onChangeDate(e.target.value)}
                 value={date}
+                type="datetime-local"
                 className="border-2 border-gray-500 px-3 py-3 placeholder-slate-300 text-black bg-white rounded-xl text-sm focus:ring w-full ease-linear transition-all duration-150"
               />
             </div>
@@ -142,7 +118,7 @@ export default function Form() {
           </div>
           <div className="text-center mt-6">
             <button
-              onClick={createAlarm}
+              onClick={createHandler}
               className="bg-blue-500 text-white active:bg-slate-600 text-sm font-bold uppercase px-6 py-3 rounded-full shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
               type="button"
             >

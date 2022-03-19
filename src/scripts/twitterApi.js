@@ -1,14 +1,63 @@
 import fetch from "node-fetch";
-
 import axios from "axios";
 
-export default axios.create({
+export const twitter = axios.create({
   baseURL: "http://localhost:4000/https://api.twitter.com/2",
   headers: {
     Authorization:
       "Bearer AAAAAAAAAAAAAAAAAAAAAKZtYQEAAAAA8OWu8GKNSLSfitU9OSL86dD9YkI%3D2YmR2FfRDr1Kqo4yrL0sQArmgvRHWtTxPQN6pcdsxiidwktmSn",
   },
 });
+
+export const getTweets = async (alarm, setTweets) => {
+  await twitter
+    .get("/tweets/search/recent", {
+      params: {
+        query: alarm.search, //sometimes bad request
+        "tweet.fields": "created_at,author_id",
+      },
+    })
+    .then((res) => {
+      setTweets(res.data.data);
+    })
+    .catch((err) => {
+      throw err;
+    });
+};
+
+export const getTweetCount = async (alarm) => {
+  await twitter
+    .get("/tweets/counts/recent", {
+      params: {
+        query: alarm.search, //sometimes bad request
+        start_time: alarm.date,
+        end_time: alarm.updateAt,
+      },
+    })
+    .then((res) => {
+      return res.data.meta.total_tweet_count;
+    })
+    .catch((err) => {
+      throw err;
+    });
+};
+
+export const getAuthor = async (item, setAuthor) => {
+  await twitter
+    .get(`/users/${item.item.author_id}`, {
+      params: {
+        "user.fields": "profile_image_url,verified",
+      },
+    })
+    .then((res) => {
+      setAuthor(res.data.data);
+    })
+    .catch((err) => {
+      throw err;
+    });
+};
+
+// -------------------------------------------------
 
 export const tweets = async () => {
   const TOKEN = `AAAAAAAAAAAAAAAAAAAAAKZtYQEAAAAA8OWu8GKNSLSfitU9OSL86dD9YkI%3D2YmR2FfRDr1Kqo4yrL0sQArmgvRHWtTxPQN6pcdsxiidwktmSn`;
@@ -40,7 +89,7 @@ export const tweets = async () => {
 
 export const searchTweets = async () => {};
 
-export const getTweets = async (ids) => {
+export const getTweetsFetch = async (ids) => {
   if (ids.length === 0) {
     return [];
   }

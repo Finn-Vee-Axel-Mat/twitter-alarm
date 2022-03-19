@@ -1,76 +1,54 @@
 import React, { useState, useEffect } from "react";
 import { FlatList } from "react-native";
+
 import Navbar from "../components/Navbar.js";
 import Data from "../components/Data.js";
-import Pagination from "../components/Pagination.js";
 import FooterSmall from "../components/FooterSmall.js";
-import axios from "axios";
 
 import { playGentleRefresh, playGentleAlarm } from "../scripts/music.js";
-import { tweets } from "../scripts/twitter.js";
+import { getTweetCount, tweets } from "../scripts/twitterApi.js";
+import { getAlarms, searchAlarm } from "../scripts/alarmsApi.js";
 
 export default function Following() {
   const [timeLeft, setTimeLeft] = useState(60);
   let c = 0;
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setTimeLeft((timeLeft) => timeLeft - 1);
-      c += 1;
-      if (c == 60) {
-        c = 0;
-        // playAlarm();
-        setTimeLeft((timeLeft) => 60);
-        refreshAlarms();
-      }
-    }, 1000);
-    return () => clearInterval(timer);
-  }, []);
 
   const [alarms, setAlarms] = useState([]);
   const [search, setSearch] = useState([]);
   const token = localStorage.getItem("token");
   const email = localStorage.getItem("email");
 
-  const getAlarms = async () => {
-    const config = {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    };
+  function refreshAlarms() {
+    console.log("---------");
+    console.log("token : " + localStorage.getItem("token"));
+    console.log("email : " + localStorage.getItem("email"));
+    console.log("alerte audio % : " + localStorage.getItem("audioAlert"));
+    console.log("alerte email ? : " + localStorage.getItem("emailAlert"));
+    console.log("---------");
+    var data = JSON.parse(localStorage.getItem("alarms"));
 
-    await axios
-      .post("/api/alarms/", { email }, config)
-      .then((res) => {
-        console.log(res.data);
-        setAlarms(res.data);
-      })
-      .catch((err) => {
-        throw err;
-      });
-  };
+    for (let i = 0; i < data.length; i++) {
+      data[i].occurence += 1;
+      data[i].lastUpdate = new Date().toUTCString();
 
-  const searchAlarm = async (e) => {
-    const config = {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    };
+      if (data[i].occurence == data[i].total) {
+        playGentleAlarm();
+        alert("L'alarme '" + data[i].title + "' s'est déclenchée !");
+      }
+    }
+    localStorage.setItem("alarms", JSON.stringify(data));
+    getAlarms();
+  }
 
-    await axios
-      .post("/api/alarms/find", { email, title: search }, config)
-      .then((res) => {
-        console.log(res.data);
-        setAlarms(res.data);
-      })
-      .catch((err) => {
-        throw err;
-      });
-  };
+  function refreshButton() {
+    playGentleRefresh();
+    refreshAlarms();
+    tweets();
+  }
 
   useEffect(() => {
-    getAlarms();
+    getAlarms(email, token, setAlarms);
+
     if (localStorage.getItem("alarms") == null) {
       console.log("Pas d'alarmes !");
 
@@ -123,35 +101,19 @@ export default function Following() {
       console.log("Alarmes déployées !");
       console.log(JSON.parse(localStorage.getItem("alarms")));
     }
-  }, []);
 
-  function refreshAlarms() {
-    console.log("---------");
-    console.log("token : " + localStorage.getItem("token"));
-    console.log("email : " + localStorage.getItem("email"));
-    console.log("alerte audio % : " + localStorage.getItem("audioAlert"));
-    console.log("alerte email ? : " + localStorage.getItem("emailAlert"));
-    console.log("---------");
-    var data = JSON.parse(localStorage.getItem("alarms"));
-
-    for (let i = 0; i < data.length; i++) {
-      data[i].occurence += 1;
-      data[i].lastUpdate = new Date().toUTCString();
-
-      if (data[i].occurence == data[i].total) {
-        playGentleAlarm();
-        alert("L'alarme '" + data[i].title + "' s'est déclenchée !");
+    const timer = setInterval(() => {
+      setTimeLeft((timeLeft) => timeLeft - 1);
+      c += 1;
+      if (c === 60) {
+        c = 0;
+        // playAlarm();
+        setTimeLeft((timeLeft) => 60);
+        refreshAlarms();
       }
-    }
-    localStorage.setItem("alarms", JSON.stringify(data));
-    getAlarms();
-  }
-
-  function refreshButton() {
-    playGentleRefresh();
-    refreshAlarms();
-    tweets();
-  }
+    }, 1000);
+    return () => clearInterval(timer);
+  }, []);
 
   return (
     <>
@@ -194,12 +156,13 @@ export default function Following() {
               placeholder="Search"
               onChange={(e) => setSearch(e.target.value)}
               onKeyPress={(e) => {
-                if (e.key === "Enter") return searchAlarm();
+                if (e.key === "Enter")
+                  return searchAlarm(email, search, token, setAlarms);
               }}
               value={search}
             />
             <button
-              onClick={searchAlarm}
+              onClick={() => searchAlarm(email, search, token, setAlarms)}
               type="button"
               className="z-10 h-full leading-snug font-normal absolute text-center text-slate-800 bg-transparent rounded text-base items-center justify-center right-0 pr-3 py-1"
             >
@@ -235,7 +198,7 @@ export default function Following() {
           <FlatList
             // data={JSON.parse(localStorage.getItem("alarms"))}
             data={alarms}
-            keyExtractor={(item) => item.id}
+            keyExtractor={(item) => item._id}
             renderItem={(item) => (
               <Data
                 item={item}
@@ -253,8 +216,6 @@ export default function Following() {
               />
             )}
           />
-
-          <Pagination />
         </div>
       </div>
       {alarms.length > 6 || window.innerWidth < 720 ? (

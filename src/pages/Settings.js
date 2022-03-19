@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Switch, TextInput, TouchableOpacity, Platform } from "react-native";
+import { Switch, TextInput, TouchableOpacity } from "react-native";
 import axios from "axios";
 import Navbar from "../components/Navbar.js";
 import FooterSmall from "../components/FooterSmall.js";
