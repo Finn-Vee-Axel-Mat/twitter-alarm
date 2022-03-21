@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 
 export default function Settings() {
   const [sound_isEnabled, sound_setIsEnabled] = useState(false);
+
   const sound_toggleSwitch = () => {
     sound_setIsEnabled((previousState) => !previousState);
     if (sound_isEnabled) {
@@ -29,7 +30,6 @@ export default function Settings() {
   );
 
   const navigate = useNavigate();
-  const [link, setLink] = useState("");
   const email = localStorage.getItem("email");
 
   const changePassword = async (e) => {

@@ -1,5 +1,4 @@
 import React from "react";
-import { TouchableOpacity } from "react-native";
 
 export default function Data({ item }) {
   return (
@@ -52,14 +51,6 @@ export default function Data({ item }) {
               </div>
             </div>
           </div>
-          {/* <TouchableOpacity
-            style={{ margin: "10px" }}
-            onPress={() => {
-              window.location.href = "/tweet/" + item.item._id;
-            }}
-          >
-            <i className="fas fa-plus-circle" />
-          </TouchableOpacity> */}
         </div>
       </div>
     </>

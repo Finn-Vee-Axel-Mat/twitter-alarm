@@ -6,7 +6,6 @@ import Data from "../components/Data.js";
 import FooterSmall from "../components/FooterSmall.js";
 
 import { playGentleRefresh, playGentleAlarm } from "../scripts/music.js";
-import { getTweetCount } from "../scripts/twitterApi.js";
 import { getAlarms, searchAlarm } from "../scripts/alarmsApi.js";
 
 export default function Following() {
@@ -112,7 +111,7 @@ export default function Following() {
             type="button"
             onClick={() => {
               c = 0;
-              setTimeLeft((timeLeft) => 60);
+              setTimeLeft(60);
               refreshButton();
             }}
             className="text-white bg-blue-500 font-bold uppercase text-xs px-9 py-2 rounded-full shadow hover:shadow-md outline-none focus:outline-none ease-linear transition-all duration-150"
@@ -130,32 +129,16 @@ export default function Following() {
 
         <div className="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 rounded-xl ">
           <FlatList
-            // data={JSON.parse(localStorage.getItem("alarms"))}
             data={alarms}
             keyExtractor={(item) => item._id}
-            renderItem={(item) => (
-              <Data
-                item={item}
-                delay={timeLeft}
-                delete={(id) => {
-                  console.log(id);
-                  var data = JSON.parse(localStorage.getItem("alarms"));
-                  for (var i = 0; i < data.length; i++) {
-                    if (data[i].id === id) {
-                      //data.splice(i, 1);
-                    }
-                  }
-                  localStorage.setItem("alarms", JSON.stringify(data));
-                }}
-              />
-            )}
+            renderItem={(item) => <Data item={item} delay={timeLeft} />}
           />
         </div>
       </div>
       {alarms.length > 6 || window.innerWidth < 720 ? (
         <FooterSmall />
       ) : (
-        <FooterSmall />
+        <FooterSmall absolute />
       )}
     </>
   );

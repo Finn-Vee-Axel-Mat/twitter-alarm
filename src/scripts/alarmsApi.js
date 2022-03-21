@@ -5,7 +5,7 @@ const local = axios.create({
   baseURL: "http://localhost:3000",
 });
 
-export const getAlarm = async (id, token, setAlarm) => {
+export const getAlarm = async (id, token, setAlarm, setTweets) => {
   const config = {
     headers: {
       "Content-Type": "application/json",
@@ -13,14 +13,32 @@ export const getAlarm = async (id, token, setAlarm) => {
     },
   };
 
-  await local
+  const alarm = await local
     .get(`/api/alarms/${id}`, config)
     .then((res) => {
       setAlarm(res.data);
+      return res.data;
     })
     .catch((err) => {
       throw err;
     });
+
+  const tweets = await twitter
+    .get("/tweets/search/recent", {
+      params: {
+        query: alarm.search + " -is:retweet", //sometimes bad request
+        "tweet.fields": "created_at,author_id",
+      },
+    })
+    .then((res) => {
+      setTweets(res.data.data);
+      return res.data.data;
+    })
+    .catch((err) => {
+      throw err;
+    });
+
+  console.log(tweets);
 };
 
 export const getAlarms = async (email, token, setAlarms) => {
@@ -45,7 +63,7 @@ export const getAlarms = async (email, token, setAlarms) => {
     const occurence = await twitter
       .get("/tweets/counts/recent", {
         params: {
-          query: value.search, //sometimes bad request
+          query: value.search + " -is:retweet", //sometimes bad request
           start_time: value.date,
           end_time: value.updateAt,
         },
@@ -140,7 +158,7 @@ export const updateAlarmOccurence = async (id, alarm, token) => {
   const occurence = await twitter
     .get("/tweets/counts/recent", {
       params: {
-        query: alarm.search, //sometimes bad request
+        query: alarm.search + " -is:retweet",
         start_time: alarm.date,
         end_time: alarm.updateAt,
       },

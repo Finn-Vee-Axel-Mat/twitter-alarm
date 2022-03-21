@@ -5,7 +5,6 @@ import { useNavigate, useParams } from "react-router-dom";
 import Tweet from "../components/Tweet.js";
 import Navbar from "../components/Navbar.js";
 import FooterSmall from "../components/FooterSmall.js";
-import { getTweets } from "../scripts/twitterApi.js";
 import {
   getAlarm,
   deleteAlarm,
@@ -20,8 +19,7 @@ export default function Following() {
   const [tweets, setTweets] = useState([]);
 
   useEffect(() => {
-    getAlarm(id, token, setAlarm).then(getTweets(alarm, setTweets));
-    updateAlarmOccurence(id, alarm, token);
+    getAlarm(id, token, setAlarm, setTweets);
   }, []);
 
   return (
@@ -36,7 +34,8 @@ export default function Following() {
               {alarm.title}
             </p>
             <span className="text-sm text-slate-600">
-              Updated {(new Date() - new Date(alarm.updatedAt))/1000} seconds ago !
+              Updated {(new Date() - new Date(alarm.updatedAt)) / 1000} seconds
+              ago !
             </span>
           </div>
 
@@ -44,7 +43,10 @@ export default function Following() {
             <div className="flex justify-end items-center m-6">
               <button
                 type="button"
-                onClick={() => {getAlarm(id, token, setAlarm);}}
+                onClick={() => {
+                  getAlarm(id, token, setAlarm, setTweets);
+                  updateAlarmOccurence(id, alarm, token);
+                }}
                 className="text-white bg-blue-500 font-bold uppercase text-xs px-9 py-2 rounded-full shadow hover:shadow-md outline-none focus:outline-none ease-linear transition-all duration-150"
               >
                 <i className="hidden lg:fas fa-sync pr-2" />

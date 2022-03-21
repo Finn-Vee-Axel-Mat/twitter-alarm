@@ -28,12 +28,9 @@ export const resetPasswordMail = (email, resetUrl) => {
     );
 };
 
-
-
-
 /* EMAILJS - ACCOUNT 2 */
 
-//Send a notification to a email account when an alarm is triggered 
+//Send a notification to a email account when an alarm is triggered
 export const alarmTrigerred = (email, titre) => {
   emailjs.init("0dAHY8DxSACd5mDCk");
   emailjs
