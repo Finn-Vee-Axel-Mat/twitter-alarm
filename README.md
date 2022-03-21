@@ -1,6 +1,6 @@
+<h3 align="center">
 # Twitter Alarm 🐦
-
-<h3 align="center">This topic deals with the development of an alert Website for twitter. In particular, it is requested that a user can register one (or more) words/tokens, which he wants to monitor. In case a certain threshold is being exceeded, an alert for the corresponding user should be generated. In addition, a visualization of should be presented on the Website.</h3>
+This topic deals with the development of an alert Website for twitter. In particular, it is requested that a user can register one (or more) words/tokens, which he wants to monitor. In case a certain threshold is being exceeded, an alert for the corresponding user should be generated. In addition, a visualization of should be presented on the Website.</h3>
 
 ## Overview
 
