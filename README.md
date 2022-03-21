@@ -4,9 +4,9 @@ This topic deals with the development of an alert Website for twitter. In partic
 
 ## Overview
 
-[![Home route][home]]
-[![Following route][following]]
-[![Settings route][settings]]
+![Home route][home]
+![Following route][following]
+![Settings route][settings]
 
 # Usage
 
