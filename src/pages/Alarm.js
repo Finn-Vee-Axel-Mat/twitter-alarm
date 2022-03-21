@@ -20,15 +20,9 @@ export default function Following() {
   const [tweets, setTweets] = useState([]);
 
   useEffect(() => {
-    getAlarm(id, token, setAlarm);
-    getTweets(alarm, setTweets);
+    getAlarm(id, token, setAlarm).then(getTweets(alarm, setTweets));
     updateAlarmOccurence(id, alarm, token);
   }, []);
-
-  const updateHandler = () => {
-    console.log(alarm);
-    getAlarm(id, token, setAlarm);
-  };
 
   return (
     <>
@@ -42,7 +36,7 @@ export default function Following() {
               {alarm.title}
             </p>
             <span className="text-sm text-slate-600">
-              Created {(new Date() - new Date(alarm.updatedAt))/1000} seconds ago !
+              Updated {(new Date() - new Date(alarm.updatedAt))/1000} seconds ago !
             </span>
           </div>
 
@@ -50,7 +44,7 @@ export default function Following() {
             <div className="flex justify-end items-center m-6">
               <button
                 type="button"
-                onClick={() => {getAlarm(id, token, setAlarm);console.log(alarm); getTweets(alarm, setTweets)}}
+                onClick={() => {getAlarm(id, token, setAlarm);}}
                 className="text-white bg-blue-500 font-bold uppercase text-xs px-9 py-2 rounded-full shadow hover:shadow-md outline-none focus:outline-none ease-linear transition-all duration-150"
               >
                 <i className="hidden lg:fas fa-sync pr-2" />
