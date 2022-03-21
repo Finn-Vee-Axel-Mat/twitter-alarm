@@ -20,6 +20,7 @@ export default function Settings() {
   };
 
   const [mail_isEnabled, mail_setIsEnabled] = useState(false);
+
   const mail_toggleSwitch = () => {
     mail_setIsEnabled((previousState) => !previousState);
     localStorage.setItem("emailAlert", !mail_isEnabled);

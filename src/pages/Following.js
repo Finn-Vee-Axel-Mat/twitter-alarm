@@ -9,6 +9,8 @@ import { playGentleRefresh, playGentleAlarm } from "../scripts/music.js";
 import { getAlarms, searchAlarm } from "../scripts/alarmsApi.js";
 import { alarmTrigerred } from "../scripts/mailing.js";
 
+import { mail_isEnabled } from "./Settings.js";
+
 export default function Following() {
   const [timeLeft, setTimeLeft] = useState(60);
   let c = 0;
@@ -17,6 +19,7 @@ export default function Following() {
   const [search, setSearch] = useState([]);
   const token = localStorage.getItem("token");
   const email = localStorage.getItem("email");
+  const mail_isEnabled = localStorage.getItem("emailAlert");
 
   function refreshAlarms() {
     console.log("---------");
@@ -30,8 +33,8 @@ export default function Following() {
 
     alarms.map((value, index) => {
       if (value.occurence > value.total) {
-        alert(`${value.title}!`);
-        alarmTrigerred(email, value.title);
+        if (mail_isEnabled) alarmTrigerred(email, value.title);
+        else alert(`${value.title}!`);
       }
     });
   }
