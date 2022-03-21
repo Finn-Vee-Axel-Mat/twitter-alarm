@@ -43,23 +43,12 @@ export default function Tweet({ item }) {
                     {author.username}{" "}
                   </span>
                 </span>
-                <div className="leading-normal whitespace-pre-wrap text-base text-gray-700">
+                <p className="leading-normal whitespace-pre-wrap text-base text-gray-700">
                   {item.item.text}
-                  {/* <a
-                    href={entities.urls.expanded_url}
-                    className="text-blue-500"
-                  >
-                    {entities.urls.expanded_url}
-                  </a>{" "} */}
-                </div>
-                <a
-                  className="text-gray-500 text-sm hover:underline"
-                  href="https://mobile.twitter.com/JYPETWICE/status/1459023423124881410"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
+                </p>
+                <p className="text-gray-500 text-sm">
                   {new Date(item.item.created_at).toDateString()}
-                </a>
+                </p>
               </div>
             </div>
           </div>
