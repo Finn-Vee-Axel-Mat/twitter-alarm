@@ -4,7 +4,9 @@ This topic deals with the development of an alert Website for twitter. In partic
 
 ## Overview
 
-[![Following route][ex]](https://example.com)
+[![Home route][home]]
+[![Following route][following]]
+[![Settings route][settings]]
 
 # Usage
 
@@ -18,5 +20,6 @@ In the project directory, you need to run:
 
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-
-[ex]: https://github.com/Finn-Vee-Axel-Mat/twitter-alarm-assets/blob/master/screen_following.png
+[home]: https://github.com/Finn-Vee-Axel-Mat/twitter-alarm-assets/blob/master/screen_home.png
+[settings]: https://github.com/Finn-Vee-Axel-Mat/twitter-alarm-assets/blob/master/screen_settings.png
+[following]: https://github.com/Finn-Vee-Axel-Mat/twitter-alarm-assets/blob/master/screen_following.png
