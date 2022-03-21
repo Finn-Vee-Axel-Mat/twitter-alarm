@@ -8,8 +8,14 @@
 ![Following route][following]
 ![Settings route][settings]
 
-# Usage
+# Getting Started
 
+## Prerequisites
+
+* A backend supporting accounts and alarms. Currently functional with mongoDB [mongodb.com/fr-fr/cloud](https://www.mongodb.com/fr-fr/cloud).
+* An EmailJS account for : Say welcome, reset password, email notifications  [emailjs.com](https://www.emailjs.com/).
+
+## Installation
 In the project directory, you need to run:
 
 1. Install the dependencies to the local node_modules folder.
@@ -17,6 +23,10 @@ In the project directory, you need to run:
 
 2. Runs the app in the development mode.
 ### `npm run dev`
+
+# Dependencies
+
+
 
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
