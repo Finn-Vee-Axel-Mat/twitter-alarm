@@ -39,18 +39,17 @@ export default function Following() {
             </span>
           </div>
 
-          <div className="flex">
-            <div className="flex justify-end items-center m-6">
+          <div className="flex items-center justify-center">
+            <div className="flex justify-end items-center lg:m-6 m-2">
               <button
                 type="button"
                 onClick={() => {
                   getAlarm(id, token, setAlarm, setTweets);
                   updateAlarmOccurence(id, alarm, token);
                 }}
-                className="text-white bg-blue-500 font-bold uppercase text-xs px-9 py-2 rounded-full shadow hover:shadow-md outline-none focus:outline-none ease-linear transition-all duration-150"
+                className="text-white bg-blue-500 font-bold uppercase text-xs px-6 py-2 rounded-full shadow hover:shadow-md outline-none focus:outline-none ease-linear transition-all duration-150"
               >
-                <i className="hidden lg:fas fa-sync pr-2" />
-                Click to refresh
+                Refresh
               </button>
             </div>
             <TouchableOpacity
@@ -60,7 +59,7 @@ export default function Following() {
                 navigate("/following");
               }}
             >
-              <i className="fa-2x fas fa-trash-alt pt-4" />
+              <i className="fa-2x fas fa-trash-alt" />
             </TouchableOpacity>
           </div>
         </div>
@@ -91,6 +90,21 @@ export default function Following() {
         </div>
         <div
           style={{
+            width: "100%",
+            marginBottom: "2em",
+            padding: "10px 10px 10px 10px",
+          }}
+        >
+          <h1 className="text-lg font-bold flex">
+            <u className="pr-4">Tokens</u>
+            <span className="mt-1 text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-sky-600 bg-sky-200 last:mr-0 mr-1">
+              {alarm.search}
+            </span>
+          </h1>
+        </div>
+
+        <div
+          style={{
             backgroundColor: "#e1dada",
             width: "100%",
             marginBottom: "2em",
@@ -102,21 +116,7 @@ export default function Following() {
           </h1>
           <p>{alarm.description}</p>
         </div>
-        <div
-          style={{
-            backgroundColor: "#e6c9c9",
-            width: "100%",
-            marginBottom: "2em",
-            padding: "10px 10px 10px 10px",
-          }}
-        >
-          <h1 className="text-lg font-bold">
-            <u>Tokens:</u>
-          </h1>
-          <p>
-            <i>{alarm.search}</i>
-          </p>
-        </div>
+
         <div
           style={{
             width: "100%",

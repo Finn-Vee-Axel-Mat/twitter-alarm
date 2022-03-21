@@ -7,6 +7,7 @@ import FooterSmall from "../components/FooterSmall.js";
 
 import { playGentleRefresh, playGentleAlarm } from "../scripts/music.js";
 import { getAlarms, searchAlarm } from "../scripts/alarmsApi.js";
+import { alarmTrigerred } from "../scripts/mailing.js";
 
 export default function Following() {
   const [timeLeft, setTimeLeft] = useState(60);
@@ -24,7 +25,15 @@ export default function Following() {
     console.log("alerte audio % : " + localStorage.getItem("audioAlert"));
     console.log("alerte email ? : " + localStorage.getItem("emailAlert"));
     console.log("---------");
+
     getAlarms(email, token, setAlarms);
+
+    alarms.map((value, index) => {
+      if (value.occurence > value.total) {
+        alert(`${value.title}!`);
+        alarmTrigerred(email, value.title);
+      }
+    });
   }
 
   function refreshButton() {
@@ -53,29 +62,6 @@ export default function Following() {
       <Navbar fixed page="following" />
       <section className="relative block h-70-px" />
       <div className="container mx-auto px-4">
-        <h2
-          style={
-            window.location.search.substring(8) == "good" &&
-            window.location.search.substring(8) !== null
-              ? {}
-              : { display: "none" }
-          }
-          className="text-white bg-green-500 rounded-full mx-45 my-6 px-5 py-2 text-3xl font-bold block tracking-wide"
-        >
-          Alarm created successfully !
-        </h2>
-        <h2
-          style={
-            window.location.search.substring(8) == "bad" &&
-            window.location.search.substring(8) !== null
-              ? {}
-              : { display: "none" }
-          }
-          className="text-white bg-red-500 rounded-full mx-45 my-6 px-5 py-2 text-3xl font-bold block tracking-wide"
-        >
-          Incorrect creation of the alarm!
-        </h2>
-
         <div className="flex items-center justify-between lg: my-2 mx-1">
           <h1 className="mx-45 my-6 underline px-4 text-3xl font-bold block tracking-wide text-slate-800">
             Following
@@ -135,7 +121,7 @@ export default function Following() {
           />
         </div>
       </div>
-      {alarms.length > 6 || window.innerWidth < 720 ? (
+      {alarms.length > 6 || window.innerWidth < 1024 ? (
         <FooterSmall />
       ) : (
         <FooterSmall absolute />

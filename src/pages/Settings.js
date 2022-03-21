@@ -63,9 +63,9 @@ export default function Settings() {
         <h2 className="mx-45 my-6 px-4 block tracking-wide text-slate-800 text-3xl font-bold">
           My account{" "}
         </h2>
-        <u className="mx-45 my-6 px-4 block tracking-wide text-blue-600 text-lg mt-6">
+        <p className="mx-45 my-6 px-4 block tracking-wide text-blue-600 text-lg mt-6 font-bold underline">
           {localStorage.getItem("email")}
-        </u>
+        </p>
 
         <hr className="border-black" />
 
@@ -175,7 +175,8 @@ export default function Settings() {
       </div>
 
       <br />
-      <FooterSmall />
+
+      {window.innerWidth < 720 ? <FooterSmall /> : <FooterSmall absolute />}
     </>
   );
 }

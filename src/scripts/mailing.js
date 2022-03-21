@@ -31,11 +31,11 @@ export const resetPasswordMail = (email, resetUrl) => {
 /* EMAILJS - ACCOUNT 2 */
 
 //Send a notification to a email account when an alarm is triggered
-export const alarmTrigerred = (email, titre) => {
+export const alarmTrigerred = (email, title) => {
   emailjs.init("0dAHY8DxSACd5mDCk");
   emailjs
     .send("service_tnmqf1i", "template_i1cprqn", {
-      alarm_title: titre,
+      alarm_title: title,
       email: email,
     })
     .then(

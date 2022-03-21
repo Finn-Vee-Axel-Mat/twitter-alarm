@@ -10,13 +10,18 @@ export default function Data({ item }) {
             className="w-full lg:w-4/12 px-4 lg:order-1"
           >
             <div className="mr-4 p-3 text-left">
-              <a
-                href={"/tweet/" + item.item._id}
-                target="_blank"
-                className="text-3xl font-bold block tracking-wide text-slate-800"
-              >
-                {item.item.title}
-              </a>
+              <div className="flex items-center">
+                <a
+                  href={"/tweet/" + item.item._id}
+                  target="_blank"
+                  className="text-3xl font-bold block tracking-wide text-slate-800 pr-2"
+                >
+                  {item.item.title}
+                </a>
+                <span className="mt-1 text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-sky-600 bg-sky-200 last:mr-0 mr-1">
+                  {item.item.search}
+                </span>
+              </div>
               <span className="text-sm text-slate-600">
                 Updated {item.delay} seconds ago
               </span>
