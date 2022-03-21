@@ -58,7 +58,7 @@ export default function Data({ item }) {
               window.location.href = "/tweet/" + item.item._id;
             }}
           >
-            <i class="fas fa-plus-circle" />
+            <i className="fas fa-plus-circle" />
           </TouchableOpacity> */}
         </div>
       </div>

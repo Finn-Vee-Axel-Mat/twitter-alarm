@@ -42,7 +42,7 @@ export default function Following() {
               {alarm.title}
             </p>
             <span className="text-sm text-slate-600">
-              Updated {((new Date()-new Date(alarm.updatedAt)))} minutes ago !
+              Created {(new Date() - new Date(alarm.updatedAt))/1000} seconds ago !
             </span>
           </div>
 
@@ -50,7 +50,7 @@ export default function Following() {
             <div className="flex justify-end items-center m-6">
               <button
                 type="button"
-                onClick={updateHandler}
+                onClick={() => {getAlarm(id, token, setAlarm);console.log(alarm); getTweets(alarm, setTweets)}}
                 className="text-white bg-blue-500 font-bold uppercase text-xs px-9 py-2 rounded-full shadow hover:shadow-md outline-none focus:outline-none ease-linear transition-all duration-150"
               >
                 <i className="hidden lg:fas fa-sync pr-2" />
@@ -64,7 +64,7 @@ export default function Following() {
                 navigate("/following");
               }}
             >
-              <i class="fa-2x fas fa-trash-alt pt-4" />
+              <i className="fa-2x fas fa-trash-alt pt-4" />
             </TouchableOpacity>
           </div>
         </div>

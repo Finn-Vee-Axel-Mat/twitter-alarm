@@ -120,7 +120,7 @@ export default function Settings() {
                   );
                 }}
               >
-                <i class="fa-2x fas fa-plus-circle" />
+                <i className="fa-2x fas fa-plus-circle" />
               </TouchableOpacity>
               <TouchableOpacity
                 style={{ paddingHorizontal: 5, color: "#3b82f6" }}
@@ -132,7 +132,7 @@ export default function Settings() {
                   );
                 }}
               >
-                <i class="fa-2x fas fa-minus-circle" />
+                <i className="fa-2x fas fa-minus-circle" />
               </TouchableOpacity>
             </div>
           </div>

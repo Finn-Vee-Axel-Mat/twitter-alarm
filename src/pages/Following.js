@@ -124,7 +124,7 @@ export default function Following() {
 
         {timeLeft < 58 ? null : (
           <div className="text-center text-blue-500">
-            <i class="fa-3x fas fa-circle-notch fa-spin" />
+            <i className="fa-3x fas fa-circle-notch fa-spin" />
           </div>
         )}
 
