@@ -3,9 +3,9 @@
 
 ## Overview
 
-![Home route][home]
-![Following route][following]
-![Settings route][settings]
+![home](https://user-images.githubusercontent.com/74190308/159340743-55628672-307d-46be-98a4-2ed8c39a281d.png)
+![following_list](https://user-images.githubusercontent.com/74190308/159341072-3112266c-1d01-4257-b161-244d6df6e72e.png)
+![alarm](https://user-images.githubusercontent.com/74190308/159341729-3b343a76-1eda-4957-a293-d37d2811b0a1.png)
 
 # Getting Started
 
@@ -31,7 +31,3 @@ Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 * (External setup required) EmailJS: [emailjs.com](https://www.emailjs.com/)
 * (Auto install) CORS Anywhere a NodeJS proxy : [github.com/Rob--W/cors-anywhere](https://github.com/Rob--W/cors-anywhere/)
 * (Auto install) Tailwind CSS : [tailwindcss.com](https://tailwindcss.com/)
-
-[home]: https://github.com/Finn-Vee-Axel-Mat/twitter-alarm-assets/blob/master/screen_home.png
-[settings]: https://github.com/Finn-Vee-Axel-Mat/twitter-alarm-assets/blob/master/screen_settings.png
-[following]: https://github.com/Finn-Vee-Axel-Mat/twitter-alarm-assets/blob/master/screen_following.png
