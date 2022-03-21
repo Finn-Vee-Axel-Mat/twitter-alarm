@@ -9,8 +9,6 @@ import { playGentleRefresh, playGentleAlarm } from "../scripts/music.js";
 import { getAlarms, searchAlarm } from "../scripts/alarmsApi.js";
 import { alarmTrigerred } from "../scripts/mailing.js";
 
-import { mail_isEnabled } from "./Settings.js";
-
 export default function Following() {
   const [timeLeft, setTimeLeft] = useState(60);
   let c = 0;

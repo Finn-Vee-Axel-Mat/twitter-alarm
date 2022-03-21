@@ -84,13 +84,13 @@ export default function Settings() {
               trackColor={{ false: "#767577", true: "#81b0ff" }}
               ios_backgroundColor="#3e3e3e"
               onValueChange={sound_toggleSwitch}
-              value={sound_isEnabled == 0}
+              value={sound_isEnabled === 0}
             />
           </div>
 
           <div
             style={
-              sound_isEnabled == 0
+              sound_isEnabled === 0
                 ? { paddingBottom: "3px", width: "90%" }
                 : { display: "none" }
             }
