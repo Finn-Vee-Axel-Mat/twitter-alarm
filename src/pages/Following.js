@@ -6,7 +6,7 @@ import Data from "../components/Data.js";
 import FooterSmall from "../components/FooterSmall.js";
 
 import { playGentleRefresh, playGentleAlarm } from "../scripts/music.js";
-import { getTweetCount, tweets } from "../scripts/twitterApi.js";
+import { getTweetCount } from "../scripts/twitterApi.js";
 import { getAlarms, searchAlarm } from "../scripts/alarmsApi.js";
 
 export default function Following() {
@@ -25,82 +25,16 @@ export default function Following() {
     console.log("alerte audio % : " + localStorage.getItem("audioAlert"));
     console.log("alerte email ? : " + localStorage.getItem("emailAlert"));
     console.log("---------");
-    var data = JSON.parse(localStorage.getItem("alarms"));
-
-    for (let i = 0; i < data.length; i++) {
-      data[i].occurence += 1;
-      data[i].lastUpdate = new Date().toUTCString();
-
-      if (data[i].occurence == data[i].total) {
-        playGentleAlarm();
-        alert("L'alarme '" + data[i].title + "' s'est déclenchée !");
-      }
-    }
-    localStorage.setItem("alarms", JSON.stringify(data));
-    getAlarms();
+    getAlarms(email, token, setAlarms);
   }
 
   function refreshButton() {
     playGentleRefresh();
     refreshAlarms();
-    tweets();
   }
 
   useEffect(() => {
     getAlarms(email, token, setAlarms);
-
-    if (localStorage.getItem("alarms") == null) {
-      console.log("Pas d'alarmes !");
-
-      //Création d'une alarme pour l'exemple
-      var data = [];
-      data.push({
-        id: Math.floor(Math.random() * 999999),
-        title: "Mon alarme exemplaire",
-        description: "Lorem ipsum blablabla blabla bla bla...",
-        search: "alarme",
-        total: 100,
-        occurence: 2,
-        date: "2022-01-21T21:00:00Z",
-        lastUpdate: new Date().toUTCString(),
-      });
-      data.push({
-        id: Math.floor(Math.random() * 999999),
-        title: "Elon musk",
-        description: "L'alerte sur elon",
-        search: "elon",
-        total: 120,
-        occurence: 32,
-        date: "2022-01-21T21:00:00Z",
-        lastUpdate: new Date().toUTCString(),
-      });
-      data.push({
-        id: Math.floor(Math.random() * 999999),
-        title: "Recette Lasagne",
-        description: "Pour l'exemple",
-        search: "lasagne",
-        total: 20,
-        occurence: 13,
-        date: "2022-01-21T21:00:00Z",
-        lastUpdate: new Date().toUTCString(),
-      });
-      data.push({
-        id: Math.floor(Math.random() * 999999),
-        title: "Chien",
-        description: "Mignon",
-        search: "chien",
-        total: 340,
-        occurence: 213,
-        date: "2022-01-21T21:00:00Z",
-        lastUpdate: new Date().toUTCString(),
-      });
-
-      console.log(localStorage.setItem("alarms", JSON.stringify(data)));
-      console.log(JSON.parse(localStorage.getItem("alarms")));
-    } else {
-      console.log("Alarmes déployées !");
-      console.log(JSON.parse(localStorage.getItem("alarms")));
-    }
 
     const timer = setInterval(() => {
       setTimeLeft((timeLeft) => timeLeft - 1);
@@ -221,7 +155,7 @@ export default function Following() {
       {alarms.length > 6 || window.innerWidth < 720 ? (
         <FooterSmall />
       ) : (
-        <FooterSmall absolute />
+        <FooterSmall />
       )}
     </>
   );

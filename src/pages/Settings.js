@@ -175,7 +175,7 @@ export default function Settings() {
       </div>
 
       <br />
-      <FooterSmall absolute />
+      <FooterSmall />
     </>
   );
 }

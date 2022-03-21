@@ -42,7 +42,7 @@ export default function Following() {
               {alarm.title}
             </p>
             <span className="text-sm text-slate-600">
-              Updated {new Date(alarm.lastUpdate).toDateString} minutes ago !
+              Updated {((new Date()-new Date(alarm.updatedAt)))} minutes ago !
             </span>
           </div>
 
